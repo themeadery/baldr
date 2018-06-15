@@ -17,6 +17,7 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
+  //Initialize a state/var for Brix to do calculations on
   constructor(props) {
     super(props);
     this.state = {value: 10.0};
@@ -24,9 +25,9 @@ export default class App extends Component {
 
   //This is going to be where it calculates the Brix to SG
   //and saves the value into the state/var
-  onClick = () => {
+  doMath = () => {
     this.setState((prevState) => ({
-      value: prevState.value + 10
+      value: (prevState.value / (258.6 - ((prevState.value / 258.2) * 227.1))) + 1
     }));
   }
   
@@ -34,7 +35,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          Brix to SG
+          Brix to Specific Gravity
         </Text>
 
         {/*Change between unfermented wort/must and fermenting*/}
@@ -45,7 +46,13 @@ export default class App extends Component {
           <Picker.Item label="Unfermented" value="unfermented" />
           <Picker.Item label="Fermenting" value="fermenting" />
         </Picker>
-		
+
+        <Text style={styles.brix}>
+          Brix:
+        </Text>
+
+        {/*Change onChangeText (possibly onChange, onEndEditing or onSubmitEditing) to call
+         a function that does some math on the Brix value*/}
         <TextInput
           style={styles.input}
           underlineColorAndroid="transparent"
@@ -53,25 +60,18 @@ export default class App extends Component {
           placeholder="10.0"
           keyboardType="numeric"
           maxLength={5}
-          onChangeText={(value) => this.setState({ value })}
+          onChangeText={(value) => { this.setState({value}); this.doMath(); } }
         />
 
         {/*Show the calculated value*/}
         <Text style={styles.calculated}>
           Specific Gravity: {this.state.value}
         </Text>
-
-        {/*The only reason this is here is to call the onClick function to do some math on the state*/}
-        <Button
-          onPress={this.onClick}
-          title="Calculate"
-          color="blue"
-          accessibilityLabel="Calculate"
-        />
 		
         <Text style={styles.footer}>
           Who is Baldr?{'\n'}
-          In Norse mythology Baldr is the God of Light "insert URL here"
+          In Norse mythology Baldr is the God of Light{'\n'}
+          "insert URL here"
         </Text>
 		
         <Text style={styles.instructions}>
@@ -90,20 +90,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#e4f9db',
   },
   title: {
-    color: '#333333',
-    fontSize: 40,
+    color: 'black',
+    fontSize: 32,
 	  fontWeight: 'bold',
     textAlign: 'center',
-    margin: 10,
+    margin: 5,
   },
   picker: {
-	  color: '#333333',
+	  color: 'black',
 	  height: 50,
     width: 200,
   },
+  brix: {
+    color: 'black',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   input: {
     margin: 10,
-	  color: '#333333',
+	  color: 'black',
 	  width: 100,
     fontSize: 25,
     borderRadius: 4,
@@ -121,10 +127,10 @@ const styles = StyleSheet.create({
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    margin: 20,
+    margin: 10,
   },
   footer: {
     textAlign: 'center',
-    margin: 10,
+    margin: 5,
   }
 });
