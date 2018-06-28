@@ -5,8 +5,7 @@ import {
   Text,
   View,
   TextInput,
-  Picker,
-  Button
+  Picker
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -17,14 +16,15 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
-  //Initialize a state/var for Brix to do calculations on
+  //Initialize a state for Brix to do calculations on
   constructor(props) {
     super(props);
-    this.state = {value: 10.0};
+    //Set initial value to the calculated SG of the TextInput placeholder
+    //because doMath has not been called, yet
+    this.state = {value: 1.040};
   }
 
-  //This is going to be where it calculates the Brix to SG
-  //and saves the value into the state/var
+  //Calculate Brix to SG and save the value into the state
   doMath = () => {
     this.setState((prevState) => ({
       value: (prevState.value / (258.6 - ((prevState.value / 258.2) * 227.1))) + 1
@@ -69,6 +69,7 @@ export default class App extends Component {
         </Text>
 		
         <Text style={styles.footer}>
+          Equation: SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
           Who is Baldr?{'\n'}
           In Norse mythology Baldr is the God of Light{'\n'}
           "insert URL here"
@@ -92,13 +93,13 @@ const styles = StyleSheet.create({
   title: {
     color: 'black',
     fontSize: 32,
-	  fontWeight: 'bold',
+    fontWeight: 'bold',
     textAlign: 'center',
     margin: 5,
   },
   picker: {
-	  color: 'black',
-	  height: 50,
+    color: 'black',
+    height: 50,
     width: 200,
   },
   brix: {
@@ -109,12 +110,12 @@ const styles = StyleSheet.create({
   },
   input: {
     margin: 10,
-	  color: 'black',
-	  width: 100,
+    color: 'black',
+    width: 100,
     fontSize: 25,
     borderRadius: 4,
     borderColor: '#ccc',
-	  borderWidth: 1,
+    borderWidth: 1,
     textAlign: 'center',
   },
   calculated: {
