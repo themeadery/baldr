@@ -47,32 +47,37 @@ export default class App extends Component {
           <Picker.Item label="Fermenting" value="fermenting" />
         </Picker>
 
-        <Text style={styles.brix}>
-          Brix:
-        </Text>
+        <View style={styles.row}>
+          <Text style={styles.large}>
+            Brix:
+          </Text>
 
-        {/*Change onChangeText (possibly onChange, onEndEditing or onSubmitEditing) to call
-         a function that does some math on the Brix value*/}
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          autoFocus={true}
-          placeholder="10.0"
-          keyboardType="numeric"
-          maxLength={5}
-          onChangeText={(value) => { this.setState({value}); this.doMath(); } }
-        />
+          <TextInput
+            style={styles.input}
+            underlineColorAndroid="transparent"
+            autoFocus={true}
+            placeholder="10.0"
+            keyboardType="numeric"
+            maxLength={5}
+            onChangeText={(value) => { this.setState({ value }); this.doMath(); }}
+          />
+        </View>
 
-        {/*Show the calculated value*/}
-        <Text style={styles.calculated}>
-          Specific Gravity: {this.state.value.toFixed(3)}
-        </Text>
+        <View style={styles.row}>
+          <Text style={styles.large}>
+            Specific Gravity:
+          </Text>
+          {/*Show the calculated value and rounds to 3 decimal places*/}
+          <Text style={styles.calculated}>
+            {this.state.value.toFixed(3)}
+          </Text>
+        </View>
 		
         <Text style={styles.footer}>
           Equation: SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
           Who is Baldr?{'\n'}
           In Norse mythology Baldr is the God of Light{'\n'}
-          "insert URL here"
+          "http://mythology.wikia.com/wiki/Baldr"
         </Text>
 		
         <Text style={styles.instructions}>
@@ -90,6 +95,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#e4f9db',
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   title: {
     color: 'black',
     fontSize: 32,
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
   },
-  brix: {
+  large: {
     color: 'black',
     fontSize: 25,
     fontWeight: 'bold',
@@ -114,8 +123,7 @@ const styles = StyleSheet.create({
     width: 100,
     fontSize: 25,
     borderRadius: 4,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderWidth: 2,
     textAlign: 'center',
   },
   calculated: {
