@@ -65,7 +65,7 @@ export default class App extends Component {
 
         {/*Show the calculated value*/}
         <Text style={styles.calculated}>
-          Specific Gravity: {this.state.value}
+          Specific Gravity: {this.state.value.toFixed(3)}
         </Text>
 		
         <Text style={styles.footer}>
