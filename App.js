@@ -12,7 +12,7 @@ const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+    'Shake or press CTRL-M for dev menu',
 });
 
 export default class App extends Component {
@@ -43,15 +43,14 @@ export default class App extends Component {
           selectedValue={this.state.wort}
           style={styles.picker}
           onValueChange={(itemValue, itemIndex) => this.setState({ wort: itemValue })}>
-          <Picker.Item label="Unfermented" value="unfermented" />
-          <Picker.Item label="Fermenting" value="fermenting" />
+          <Picker.Item label="Unfermented Wort/Must" value="unfermented" />
+          <Picker.Item label="Fermenting Wort/Must" value="fermenting" />
         </Picker>
 
         <View style={styles.row}>
           <Text style={styles.large}>
             Brix:
           </Text>
-
           <TextInput
             style={styles.input}
             underlineColorAndroid="transparent"
@@ -74,8 +73,9 @@ export default class App extends Component {
         </View>
 		
         <Text style={styles.footer}>
-          Equation: SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
-          Who is Baldr?{'\n'}
+          <Text style={{fontWeight: 'bold'}}>Equation:</Text> SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
+          More Info{'\n'}{'\n'}
+          <Text style={{fontWeight: 'bold'}}>Who is Baldr?</Text>{'\n'}
           In Norse mythology Baldr is the God of Light{'\n'}
           "http://mythology.wikia.com/wiki/Baldr"
         </Text>
@@ -100,16 +100,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
+    fontFamily: "RunyTunesRevisitedNF",
     color: 'black',
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 55,
+    //fontWeight: 'bold',
     textAlign: 'center',
-    margin: 5,
+    margin: 10,
   },
   picker: {
     color: 'black',
     height: 50,
-    width: 200,
+    width: 225,
   },
   large: {
     color: 'black',
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   input: {
     margin: 10,
     color: 'black',
-    width: 100,
+    width: 85,
     fontSize: 25,
     borderRadius: 4,
     borderWidth: 2,
@@ -139,7 +140,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   footer: {
-    textAlign: 'center',
-    margin: 5,
+    color: 'black',
+    textAlign: 'left',
+    margin: 1,
   }
 });
