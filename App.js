@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TextInput,
-  Picker
+  Picker,
+  Linking
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -47,20 +48,20 @@ export default class App extends Component {
           <Picker.Item label="Fermenting Wort/Must" value="fermenting" />
         </Picker>
 
-        <View style={styles.row}>
-          <Text style={styles.large}>
-            Brix:
-          </Text>
-          <TextInput
-            style={styles.input}
-            underlineColorAndroid="transparent"
-            autoFocus={true}
-            placeholder="10.0"
-            keyboardType="numeric"
-            maxLength={5}
-            onChangeText={(value) => { this.setState({ value }); this.doMath(); }}
-          />
-        </View>
+          <View style={styles.row}>
+            <Text style={styles.large}>
+              Brix:
+            </Text>
+            <TextInput
+              style={styles.input}
+              underlineColorAndroid="transparent"
+              autoFocus={true}
+              placeholder="10.0"
+              keyboardType="numeric"
+              maxLength={5}
+              onChangeText={(value) => { this.setState({ value }); this.doMath(); }}
+            />
+          </View>
 
         <View style={styles.row}>
           <Text style={styles.large}>
@@ -73,11 +74,13 @@ export default class App extends Component {
         </View>
 		
         <Text style={styles.footer}>
-          <Text style={{fontWeight: 'bold'}}>Equation:</Text> SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
-          More Info{'\n'}{'\n'}
-          <Text style={{fontWeight: 'bold'}}>Who is Baldr?</Text>{'\n'}
+          <Text style={{ fontWeight: 'bold' }}>Equation:</Text> SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
+          <Text style={styles.url} onPress={() => Linking.openURL('https://www.brewersfriend.com/brix-converter/')}>More Info</Text>{'\n'}{'\n'}
+          <Text style={{ fontWeight: 'bold' }}>Who is Baldr?</Text>{'\n'}
           In Norse mythology Baldr is the God of Light{'\n'}
-          "http://mythology.wikia.com/wiki/Baldr"
+          <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>
+            http://mythology.wikia.com/wiki/Baldr
+          </Text>
         </Text>
 		
         <Text style={styles.instructions}>
@@ -100,10 +103,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontFamily: "RunyTunesRevisitedNF",
+    //fontFamily: "RunyTunesRevisitedNF",
     color: 'black',
-    fontSize: 55,
-    //fontWeight: 'bold',
+    fontSize: 35,
+    fontWeight: 'bold',
     textAlign: 'center',
     margin: 10,
   },
@@ -138,6 +141,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     margin: 10,
+  },
+  url: {
+    textDecorationLine: 'underline',
   },
   footer: {
     color: 'black',
