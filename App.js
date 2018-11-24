@@ -22,7 +22,8 @@ const instructions = Platform.select({
     'Shake or press CTRL-M for dev menu',
 });
 
-export default class App extends Component {
+class UnfermentedScreen extends React.Component {
+  
   //Initialize a state for Brix to do calculations on
   constructor(props) {
     super(props);
@@ -37,29 +38,13 @@ export default class App extends Component {
       value: (prevState.value / (258.6 - ((prevState.value / 258.2) * 227.1))) + 1
     }));
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
-          <View style={styles.titleView}>
             <Text style={styles.titleText}>
-              Brix to Specific Gravity <Text style={{ fontSize: 8 }}>Info Icon</Text>
+              Brix to Specific Gravity <Text style={{ fontSize: 8 }}>!Info Icon!</Text>
             </Text>
-
-            {/*Change between unfermented wort/must and fermenting*/}
-            <View style={styles.tabBar}>
-              <TouchableOpacity>
-                <Text style={styles.tabBarText}>
-                  UNFERMENTED
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.tabBarText}>
-                  FERMENTING
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
 
             <View style={styles.body}>
                 <View style={styles.row}>
@@ -109,32 +94,44 @@ export default class App extends Component {
   }
 }
 
+class FermentingScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>It's Alive!</Text>
+      </View>
+    );
+  }
+}
+
+const TabNavigator = createMaterialTopTabNavigator({
+  UNFERMENTED: UnfermentedScreen,
+  FERMENTING: FermentingScreen,
+},
+{
+  tabBarOptions: {
+    activeTintColor: 'black',
+    inactiveTintColor: 'grey',
+    style: {
+      backgroundColor: '#fff9c4',
+    },
+  },
+});
+
+export default createAppContainer(TabNavigator);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F5F6',
   },
-  titleView: {
-    backgroundColor: '#fff9c4',
-    elevation: 3,
-    justifyContent: 'space-around',
-    padding: 15,
-  },
   titleText: {
     //fontFamily: "RunyTunesRevisitedNF",
     color: 'black',
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginBottom: 30,
-  },
-  tabBar: {
-    backgroundColor: '#fff9c4',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  tabBarText: {
-    color: 'black',
+    padding: 25,
   },
   body: {
     justifyContent: 'center',
