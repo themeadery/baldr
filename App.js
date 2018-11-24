@@ -9,6 +9,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+//Import libraries for navigation
+import { useScreens } from 'react-native-screens';
+import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+
+useScreens();
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -35,20 +41,19 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <View style={styles.header}></View>
           <View style={styles.titleView}>
             <Text style={styles.titleText}>
-              Brix to Specific Gravity
+              Brix to Specific Gravity <Text style={{ fontSize: 8 }}>Info Icon</Text>
             </Text>
 
             {/*Change between unfermented wort/must and fermenting*/}
             <View style={styles.tabBar}>
-              <TouchableOpacity style={styles.tabItem}>
+              <TouchableOpacity>
                 <Text style={styles.tabBarText}>
                   UNFERMENTED
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.tabItem}>
+              <TouchableOpacity>
                 <Text style={styles.tabBarText}>
                   FERMENTING
                 </Text>
@@ -109,31 +114,24 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5F5F6',
   },
-  header: {
-    backgroundColor: '#cbc693',
-    height: 25,
-  },
   titleView: {
     backgroundColor: '#fff9c4',
     elevation: 3,
+    justifyContent: 'space-around',
+    padding: 15,
   },
   titleText: {
     //fontFamily: "RunyTunesRevisitedNF",
     color: 'black',
-    fontSize: 33,
+    fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
-    margin: 10,
+    textAlign: 'left',
+    marginBottom: 30,
   },
   tabBar: {
     backgroundColor: '#fff9c4',
-    height: 60,
     flexDirection: 'row',
     justifyContent: 'space-around',
-  },
-  tabItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   tabBarText: {
     color: 'black',
