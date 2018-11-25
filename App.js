@@ -8,13 +8,16 @@ import {
   Linking,
   TouchableOpacity,
 } from 'react-native';
-
-//Import libraries for navigation
+//Import modules for navigation
 import { useScreens } from 'react-native-screens';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+//Import Material Design Icons
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+//Activate the react-native-screens module
 useScreens();
 
+//Dev instructions footer
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -42,10 +45,7 @@ class UnfermentedScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-            <Text style={styles.titleText}>
-              Brix to Specific Gravity <Text style={{ fontSize: 8 }}>!Info Icon!</Text>
-            </Text>
-
+            
             <View style={styles.body}>
                 <View style={styles.row}>
                   <Text style={styles.large}>
@@ -74,6 +74,9 @@ class UnfermentedScreen extends React.Component {
             </View>
         
             <View style={styles.footerView}>
+              <Text style={styles.titleText}>
+              Brix to Specific Gravity <MaterialIcons name="info" size={25} color="grey" />
+              </Text>
               <Text style={styles.footerText}>
                 <Text style={{ fontWeight: 'bold' }}>Equation:</Text> SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
                 <Text style={styles.url} onPress={() => Linking.openURL('https://www.brewersfriend.com/brix-converter/')}>More Info</Text>{'\n'}{'\n'}
