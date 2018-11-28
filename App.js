@@ -31,13 +31,16 @@ class UnfermentedScreen extends React.Component {
     super(props);
     //Set initial value to the calculated SG of the TextInput placeholder
     //because doMath has not been called, yet
-    this.state = {value: 1.040};
+    this.state = {
+      originalBrix: 10.0,
+      OG: 1.038
+    };
   }
 
   //Calculate Brix to SG and save the value into the state
-  doMath = () => {
+  doMathOG = () => {
     this.setState((prevState) => ({
-      value: (prevState.value / (258.6 - ((prevState.value / 258.2) * 227.1))) + 1
+      OG: ((prevState.originalBrix / 1.04) / (258.6 - (((prevState.originalBrix / 1.04) / 258.2) * 227.1))) + 1
     }));
   }
 
@@ -57,7 +60,7 @@ class UnfermentedScreen extends React.Component {
                     placeholder="10.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(value) => { this.setState({ value }); this.doMath(); }}
+                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
                   />
                 </View>
 
@@ -67,18 +70,20 @@ class UnfermentedScreen extends React.Component {
                 </Text>
                 {/*Show the calculated value and rounds to 3 decimal places*/}
                 <Text style={styles.calculated}>
-                  {this.state.value.toFixed(3)}
+                  {this.state.OG.toFixed(3)}
                 </Text>
               </View>
             </View>
         
             <View style={styles.footerView}>  
               <Text style={styles.footerText}>
-                <Text style={{ fontWeight: 'bold' }}>Equation:</Text> SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'}
-                <Text style={styles.url} onPress={() => Linking.openURL('https://www.brewersfriend.com/brix-converter/')}><MaterialIcons name="info" size={25} color="grey" />More Info</Text>{'\n'}{'\n'}
+                <Text style={{ fontWeight: 'bold' }}>Equation:</Text>{'\n'}
+                  SG = ((Brix / 1.04) / (258.6-(((Brix / 1.04) / 258.2)*227.1))) + 1 
+                <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}><MaterialIcons name="info" size={20} color="grey" /></Text>{'\n'}
+                  Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}{'\n'}
                 <Text style={{ fontWeight: 'bold' }}>Who is Baldr?</Text>{'\n'}
                 In Norse mythology Baldr is the God of Light{'\n'}
-                <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}><MaterialIcons name="info" size={25} color="grey" />http://mythology.wikia.com/wiki/Baldr</Text>
+                <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
               </Text>
         
               <Text style={styles.instructions}>
@@ -99,23 +104,26 @@ class FermentingScreen extends React.Component {
     //Set initial value to the calculated SG of the TextInput placeholder
     //because doMath has not been called, yet
     this.state = {
-      OG: 1.040,
-      FG: 1.000,
-      ABV: 5.2,
-      AA: 99.0
+      originalBrix: 10.0,
+      OG: 1.038,
+      currentBrix: 5.0,
+      FG: 1.0086,
+      ABV: 3.6,
+      AA: 73.3
     };
   }
 
   //Calculate Brix to SG and save the value into the state
   doMathOG = () => {
     this.setState((prevState) => ({
-      OG: (prevState.OG / (258.6 - ((prevState.OG / 258.2) * 227.1))) + 1
+      OG: ((prevState.originalBrix / 1.04) / (258.6 - (((prevState.originalBrix / 1.04) / 258.2) * 227.1))) + 1
     }));
   }
 
   doMathFG = () => {
     this.setState((prevState) => ({
-      FG: (prevState.FG / (258.6 - ((prevState.FG / 258.2) * 227.1))) + 1
+      //FG: (prevState.FG / (258.6 - ((prevState.FG / 258.2) * 227.1))) + 1
+      FG: (1 - 0.000856829 * (prevState.originalBrix / 1.04) + 0.00349412 * (prevState.currentBrix / 1.04))
     }));
   }
 
@@ -137,7 +145,7 @@ class FermentingScreen extends React.Component {
             <View style={styles.body}>
                 <View style={styles.row}>
                   <Text style={styles.large}>
-                    Starting Brix:
+                    Original Brix:
                   </Text>
                   <TextInput
                     style={styles.input}
@@ -146,7 +154,7 @@ class FermentingScreen extends React.Component {
                     placeholder="10.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(OG) => { this.setState({ OG }); this.doMathOG(); this.doMathABV(); this.doMathAA(); }}
+                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doMathABV(); this.doMathAA(); }}
                   />
                  <Text style={styles.large}>
                   OG:
@@ -163,10 +171,10 @@ class FermentingScreen extends React.Component {
                   <TextInput
                     style={styles.input}
                     underlineColorAndroid="transparent"
-                    placeholder="0.1"
+                    placeholder="5.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(FG) => { this.setState({ FG }); this.doMathFG(); this.doMathABV(); this.doMathAA(); }}
+                    onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doMathABV(); this.doMathAA(); }}
                   />
                   <Text style={styles.large}>
                   FG:
@@ -196,11 +204,16 @@ class FermentingScreen extends React.Component {
         
             <View style={styles.footerView}>  
               <Text style={styles.footerText}>
-                <Text style={{ fontWeight: 'bold' }}>Equations:</Text> SG = (Brix / (258.6-((Brix / 258.2)*227.1))) + 1{'\n'} ABV = (OG - FG) * 131.25{'\n'} AA = 100 * (OG – FG)/(OG – 1.0){'\n'}
-                <Text style={styles.url} onPress={() => Linking.openURL('https://www.brewersfriend.com/brix-converter/')}><MaterialIcons name="info" size={25} color="grey" />More Info</Text>{'\n'}{'\n'}
+                <Text style={{ fontWeight: 'bold' }}>Equations:</Text>{'\n'}
+                  OG = ((Starting Brix / 1.04) / (258.6-(((Starting Brix / 1.04) / 258.2)*227.1))) + 1 
+                <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}><MaterialIcons name="info" size={20} color="grey" /></Text>{'\n'}
+                  Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}
+                  FG = 1 - 0.000856829 * (Starting Brix / 1.04) + 0.00349412 * (Current Brix / 1.04)
+                  ABV = (OG - FG) * 131.25{'\n'}
+                  AA = 100 * (OG – FG)/(OG – 1.0){'\n'}{'\n'}
                 <Text style={{ fontWeight: 'bold' }}>Who is Baldr?</Text>{'\n'}
                 In Norse mythology Baldr is the God of Light{'\n'}
-                <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}><MaterialIcons name="info" size={25} color="grey" />http://mythology.wikia.com/wiki/Baldr</Text>
+                <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
               </Text>
         
               <Text style={styles.instructions}>
@@ -294,5 +307,6 @@ const styles = StyleSheet.create({
   footerText: {
     color: 'black',
     textAlign: 'left',
+    fontSize: 12,
   }
 });
