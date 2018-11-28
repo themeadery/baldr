@@ -80,7 +80,8 @@ class UnfermentedScreen extends React.Component {
                 <Text style={{ fontWeight: 'bold' }}>Equation:</Text>{'\n'}
                   SG = ((Brix / 1.04) / (258.6-(((Brix / 1.04) / 258.2)*227.1))) + 1 
                 <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}><MaterialIcons name="info" size={20} color="grey" /></Text>{'\n'}
-                  Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}{'\n'}
+                  Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}
+                  This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables{'\n'}{'\n'}
                 <Text style={{ fontWeight: 'bold' }}>Who is Baldr?</Text>{'\n'}
                 In Norse mythology Baldr is the God of Light{'\n'}
                 <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
@@ -98,18 +99,20 @@ class UnfermentedScreen extends React.Component {
 
 class FermentingScreen extends React.Component {
   
-  //Initialize a state for Brix to do calculations on
+  //Initialize states to do Math on
   constructor(props) {
     super(props);
-    //Set initial value to the calculated SG of the TextInput placeholder
-    //because doMath has not been called, yet
     this.state = {
       originalBrix: 10.0,
       OG: 1.038,
+      OE: 0.00,
       currentBrix: 5.0,
       FG: 1.0086,
-      ABV: 3.6,
-      AA: 73.3
+      AE: 0.00,
+      RE: 0.00,
+      ABW: 0.0,
+      ABV: 0.0,
+      AA: 0.0
     };
   }
 
@@ -122,14 +125,40 @@ class FermentingScreen extends React.Component {
 
   doMathFG = () => {
     this.setState((prevState) => ({
-      //FG: (prevState.FG / (258.6 - ((prevState.FG / 258.2) * 227.1))) + 1
       FG: (1 - 0.000856829 * (prevState.originalBrix / 1.04) + 0.00349412 * (prevState.currentBrix / 1.04))
+    }));
+  }
+
+  doMathOE = () => {
+    this.setState((prevState) => ({
+      OE: (-668.962 + 1262.45 * prevState.OG - 776.43 * (prevState.OG * prevState.OG) + 182.94 * (prevState.OG * prevState.OG * prevState.OG))
+    }));
+  }
+  
+  doMathAE = () => {
+    this.setState((prevState) => ({
+      AE: (-668.962 + 1262.45 * prevState.FG - 776.43 * (prevState.FG * prevState.FG) + 182.94 * (prevState.FG * prevState.FG * prevState.FG))
+    }));
+  }
+
+  //this may not be accurate, check Math in Mash SummerZym95.pdf q variable
+  doMathRE = () => {
+    this.setState((prevState) => ({
+      RE: (0.8114 * prevState.AE + 0.1886 * prevState.OE)
+    }));
+  }
+
+  doMathABW = () => {
+    this.setState((prevState) => ({
+      ABW: ((prevState.OE - prevState.RE) / (2.0665 - 0.010665 * prevState.OE))
     }));
   }
 
   doMathABV = () => {
     this.setState((prevState) => ({
-      ABV: ((prevState.OG - prevState.FG) * 131.25)
+      //ABV: ((prevState.OG - prevState.FG) * 131.25)
+      //ABV: ((0.01 / 0.8192) * ((prevState.originalBrix / 1.04) - (0.1808 * (prevState.originalBrix / 1.04) + 0.8192 * (668.72 * prevState.FG - 463.37 - 205.347 * (prevState.FG * prevState.FG)))) / (2.0665 - 0.010665 * (prevState.originalBrix / 1.04)))
+      ABV: (prevState.ABW * (prevState.FG / 0.794))
     }));
   }
 
@@ -154,7 +183,7 @@ class FermentingScreen extends React.Component {
                     placeholder="10.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doMathABV(); this.doMathAA(); }}
+                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doMathOE(); this.doMathAE(); this.doMathRE(); this.doMathABW(); this.doMathABV(); this.doMathAA(); }}
                   />
                  <Text style={styles.large}>
                   OG:
@@ -174,7 +203,7 @@ class FermentingScreen extends React.Component {
                     placeholder="5.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doMathABV(); this.doMathAA(); }}
+                    onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doMathOE(); this.doMathAE(); this.doMathRE(); this.doMathABW(); this.doMathABV(); this.doMathAA(); }}
                   />
                   <Text style={styles.large}>
                   FG:
@@ -200,16 +229,39 @@ class FermentingScreen extends React.Component {
                   {this.state.AA.toFixed(1)}%
                 </Text>
               </View>
+              <View style={styles.row}>
+                <Text style={styles.smallText}>OE:</Text>
+                {/*Show the calculated value and round*/}
+                <Text style={styles.calculatedSmall}>
+                  {this.state.OE.toFixed(2)}°P
+                </Text>
+                <Text style={styles.smallText}>AE:</Text>
+                {/*Show the calculated value and round*/}
+                <Text style={styles.calculatedSmall}>
+                  {this.state.AE.toFixed(2)}°P
+                </Text>
+                <Text style={styles.smallText}>RE:</Text>
+                {/*Show the calculated value and round*/}
+                <Text style={styles.calculatedSmall}>
+                  {this.state.RE.toFixed(2)}°P
+                </Text>
+                <Text style={styles.smallText}>ABW:</Text>
+                {/*Show the calculated value and rounds to 1 decimal place*/}
+                <Text style={styles.calculatedSmall}>
+                  {this.state.ABW.toFixed(1)}%
+                </Text>
+              </View>
             </View>
         
             <View style={styles.footerView}>  
               <Text style={styles.footerText}>
                 <Text style={{ fontWeight: 'bold' }}>Equations:</Text>{'\n'}
-                  OG = ((Starting Brix / 1.04) / (258.6-(((Starting Brix / 1.04) / 258.2)*227.1))) + 1 
+                  OG = ((OB / 1.04) / (258.6-(((OB / 1.04) / 258.2)*227.1))) + 1 
                 <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}><MaterialIcons name="info" size={20} color="grey" /></Text>{'\n'}
-                  Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}
-                  FG = 1 - 0.000856829 * (Starting Brix / 1.04) + 0.00349412 * (Current Brix / 1.04)
-                  ABV = (OG - FG) * 131.25{'\n'}
+                Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}
+                  This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables{'\n'}
+                  FG = 1 - 0.000856829 * (OB / 1.04) + 0.00349412 * (CB / 1.04){'\n'}
+                  ABV = ABW * (FG/0.794){'\n'}
                   AA = 100 * (OG – FG)/(OG – 1.0){'\n'}{'\n'}
                 <Text style={{ fontWeight: 'bold' }}>Who is Baldr?</Text>{'\n'}
                 In Norse mythology Baldr is the God of Light{'\n'}
@@ -236,6 +288,10 @@ const TabNavigator = createMaterialTopTabNavigator({
     inactiveTintColor: 'grey',
     style: {
       backgroundColor: '#fff9c4',
+      paddingTop: 12,
+    },
+    indicatorStyle: {
+      backgroundColor: 'black',
     },
     labelStyle: {
       fontWeight: 'bold',
@@ -254,7 +310,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E1E2E1',
-    padding: 15,
+    padding: 20,
   },
   row: {
     flexDirection: 'row',
@@ -302,7 +358,8 @@ const styles = StyleSheet.create({
   },
   footerView: {
     backgroundColor: '#F5F5F6',
-    padding: 15,
+    paddingTop: 15,
+    paddingHorizontal: 8,
   },
   footerText: {
     color: 'black',
