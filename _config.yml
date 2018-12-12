@@ -16,8 +16,8 @@
 title: Baldr
 email: matt.a.mead@gmail.com
 description: Convert Brix to Specific Gravity
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://phorensic.github.io/baldr/" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/baldr" # the subpath of your site, e.g. /blog
+url: "https://phorensic.github.io/baldr" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  phorensic
 show_downloads: false
 

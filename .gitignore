@@ -57,4 +57,7 @@ buck-out/
 
 # Misc
 Screenshots
+_site
+.sass-cache
+.jekyll-metadata
 assets/.~lock.fg_calculator_v3.0.ods#
