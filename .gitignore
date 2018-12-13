@@ -56,7 +56,6 @@ buck-out/
 *.jsbundle
 
 # Misc
-Screenshots
 _site
 .sass-cache
 .jekyll-metadata

@@ -26,11 +26,11 @@ const instructions = Platform.select({
 
 class UnfermentedScreen extends React.Component {
   
-  //Initialize a state for Brix to do calculations on
+  //Initialize states to do Math on
   constructor(props) {
     super(props);
     //Set initial value to the calculated SG of the TextInput placeholder
-    //because doMath has not been called, yet
+    //because doMathOG has not been called, yet
     this.state = {
       originalBrix: 10.0,
       OG: 1.038
@@ -75,18 +75,22 @@ class UnfermentedScreen extends React.Component {
               </View>
             </View>
         
-            <View style={styles.footerView}>  
+            <View style={styles.footerView}>
               <Text style={styles.footerText}>
-                <Text style={{ fontWeight: 'bold' }}>Equation:</Text>{'\n'}
-                  SG = ((Brix / 1.04) / (258.6-(((Brix / 1.04) / 258.2)*227.1))) + 1 
-                <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}><MaterialIcons name="info" size={20} color="grey" /></Text>{'\n'}
-                  Note: A Wort Correction Factor (WCF) of 1.040 has been applied{'\n'}
-                  This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables{'\n'}{'\n'}
-                <Text style={{ fontWeight: 'bold' }}>Who is Baldr?</Text>{'\n'}
-                In Norse mythology Baldr is the God of Light{'\n'}
+                <Text style={{ fontWeight: 'bold', fontSize: 14 }}>Equation:</Text>
+                  {'\n'}SG = ((Brix / 1.04) / (258.6-(((Brix / 1.04) / 258.2)*227.1))) + 1 
+                    <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                    <MaterialIcons name="info" size={15} color="grey" />
+                    </Text>
+                  <Text style={{ fontWeight: 'bold'}}>{'\n'}{'\n'}Note:</Text> A Wort Correction Factor (WCF) of 1.040 has been applied
+                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables 
+                    <Text onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                    <MaterialIcons name="info" size={15} color="grey" />
+                    </Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{'\n'}{'\n'}Who is Baldr?</Text>
+                  {'\n'}In Norse mythology Baldr is the God of Light{'\n'}
                 <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-              </Text>
-        
+                </Text>
               <Text style={styles.instructions}>
                 {instructions}
               </Text>
@@ -168,6 +172,17 @@ class FermentingScreen extends React.Component {
     }));
   }
 
+  //Call the rest of the Math functions after getting the OG or FG values
+  //without having to list them all in onChangeText
+  doRemainingMath() {
+    this.doMathOE();
+    this.doMathAE();
+    this.doMathRE();
+    this.doMathABW();
+    this.doMathABV();
+    this.doMathAA();
+  }
+
   render() {
     return (
       <View style={styles.container}>    
@@ -183,7 +198,7 @@ class FermentingScreen extends React.Component {
                     placeholder="10.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doMathOE(); this.doMathAE(); this.doMathRE(); this.doMathABW(); this.doMathABV(); this.doMathAA(); }}
+                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
                   />
                  <Text style={styles.large}>
                   OG:
@@ -203,12 +218,11 @@ class FermentingScreen extends React.Component {
                     placeholder="5.0"
                     keyboardType="numeric"
                     maxLength={5}
-                    onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doMathOE(); this.doMathAE(); this.doMathRE(); this.doMathABW(); this.doMathABV(); this.doMathAA(); }}
+                    onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
                   />
                   <Text style={styles.large}>
                   FG:
                 </Text>
-                {/*Show the calculated value and rounds to 3 decimal places*/}
                 <Text style={styles.calculated}>
                   {this.state.FG.toFixed(3)}
                 </Text>
@@ -217,36 +231,30 @@ class FermentingScreen extends React.Component {
                 <Text style={styles.large}>
                   ABV:
                 </Text>
-                {/*Show the calculated value and rounds to 1 decimal place*/}
                 <Text style={styles.calculated}>
                   {this.state.ABV.toFixed(1)}%
                 </Text>
               </View>
               <View style={styles.row}>
                   <Text style={styles.smallText}>Apparent Attenuation:</Text>
-                {/*Show the calculated value and rounds to 1 decimal place*/}
                 <Text style={styles.calculatedSmall}>
                   {this.state.AA.toFixed(1)}%
                 </Text>
               </View>
               <View style={styles.row}>
                 <Text style={styles.smallText}>OE:</Text>
-                {/*Show the calculated value and round*/}
                 <Text style={styles.calculatedSmall}>
                   {this.state.OE.toFixed(2)}°P
                 </Text>
                 <Text style={styles.smallText}>AE:</Text>
-                {/*Show the calculated value and round*/}
                 <Text style={styles.calculatedSmall}>
                   {this.state.AE.toFixed(2)}°P
                 </Text>
                 <Text style={styles.smallText}>RE:</Text>
-                {/*Show the calculated value and round*/}
                 <Text style={styles.calculatedSmall}>
                   {this.state.RE.toFixed(2)}°P
                 </Text>
                 <Text style={styles.smallText}>ABW:</Text>
-                {/*Show the calculated value and rounds to 1 decimal place*/}
                 <Text style={styles.calculatedSmall}>
                   {this.state.ABW.toFixed(1)}%
                 </Text>
