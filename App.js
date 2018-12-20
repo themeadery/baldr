@@ -18,14 +18,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //Deprecated
 //useScreens();
 
-//Dev instructions footer
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press CTRL-M for dev menu',
-});
-
 class UnfermentedScreen extends React.Component {
   
   //Initialize states to do Math on
@@ -78,25 +70,33 @@ class UnfermentedScreen extends React.Component {
             </View>
         
             <View style={styles.footerView}>
-                <Text style={styles.footerTextBoldH1}>Equation:</Text>
-                  <Text style={styles.footerText}>SG = ((Brix / 1.04) / (258.6-(((Brix / 1.04) / 258.2)*227.1))) + 1 </Text>
-                    <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={20} color="grey" style={styles.infoIcon} />
-                    </TouchableOpacity>
 
-                    <Text style={styles.footerText}><Text style={styles.footerTextBold}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
-                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables</Text> 
+              <View style={styles.footerViewLeft}>
+                <Text style={styles.footerText}>
+                  <Text style={styles.footerTextBoldH1}>Equation:</Text>
+                  {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
+                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
+                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
+
+                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
+                  {'\n'}In Norse mythology Baldr is the God of Light
+                  {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
+                </Text>
+              </View>
+
+              <View style={styles.footerViewRight}>
+                <View style={{paddingTop: 18}}>
                   <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={20} color="grey" style={styles.infoIcon} />
-                    </TouchableOpacity>
+                    <MaterialIcons name="info" size={22}/>
+                  </TouchableOpacity>
+                </View>
+                <View style={{paddingTop: 24}}>
+                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                    <MaterialIcons name="info" size={22}/>
+                  </TouchableOpacity>
+                </View>
+              </View>
 
-                <Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
-                  <Text style={styles.footerText}>In Norse mythology Baldr is the God of Light</Text>
-                  <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-              
-              <Text style={styles.instructions}>
-                {instructions}
-              </Text>
             </View>
 
       </View>
@@ -265,24 +265,41 @@ class FermentingScreen extends React.Component {
             </View>
         
             <View style={styles.footerView}>
-                <Text style={styles.footerTextBoldH1}>Equations:</Text>
-                <Text style={styles.footerText}>
-                  OG = ((OB / 1.04) / (258.6-(((OB / 1.04) / 258.2)*227.1))) + 1{'\n'}
-                  FG = 1 - 0.000856829 * (OB / 1.04) + 0.00349412 * (CB / 1.04){'\n'}
-                  ABV = ABW * (FG/0.794){'\n'}
-                  AA = 100 * (OG – FG)/(OG – 1.0)                
-                  </Text>
 
-                  <Text style={styles.footerText}><Text style={styles.footerTextBold}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
-                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables</Text>
-                  
-                <Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
-                  <Text style={styles.footerText}>In Norse mythology Baldr is the God of Light</Text>
-                  <Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-        
-              <Text style={styles.instructions}>
-                {instructions}
-              </Text>
+              <View style={styles.footerViewLeft}>
+                <Text style={styles.footerText}>
+                  <Text style={styles.footerTextBoldH1}>Equations:</Text>
+                  {'\n'}OG = ((OB / WCF) / (258.6-(((OB / WCF) / 258.2)*227.1))) + 1
+                  {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
+                  {'\n'}ABV = ABW * (FG/0.794)
+                  {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
+                  {'\n'}OE
+                  {'\n'}AE
+                  {'\n'}RE
+                  {'\n'}ABW            
+
+                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
+                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
+                    
+                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
+                  {'\n'}In Norse mythology Baldr is the God of Light
+                  {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
+                </Text>
+              </View>
+
+              <View style={styles.footerViewRight}>
+                <View style={{paddingTop: 65}}>
+                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                    <MaterialIcons name="info" size={22}/>
+                  </TouchableOpacity>
+                </View>
+                <View style={{paddingTop: 85}}>
+                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                    <MaterialIcons name="info" size={22}/>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
             </View>
 
       </View>
@@ -323,6 +340,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#E1E2E1',
     padding: 20,
+    elevation: 2
   },
   row: {
     flexDirection: 'row',
@@ -371,28 +389,36 @@ const styles = StyleSheet.create({
   },
   footerView: {
     backgroundColor: '#F5F5F6',
-    paddingHorizontal: 8,
+    //backgroundColor: 'green',
+    paddingTop: 8,
+    paddingLeft: 8,
+    paddingBottom: 20,
+    flexDirection: 'row',
+  },
+  footerViewLeft: {
+    //backgroundColor: 'yellow',
+    width: 375,
+  },
+  footerViewRight: {
+    //backgroundColor: 'white',
+    paddingLeft: 2
   },
   footerText: {
     color: 'black',
     textAlign: 'left',
-    fontSize: 12,
+    fontSize: 13,
   },
   footerTextBoldH1: {
     color: 'black',
     textAlign: 'left',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
-    paddingTop: 10,
   },
-  footerTextBold: {
+  footerTextBoldH2: {
     color: 'black',
     textAlign: 'left',
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
-    paddingTop: 2,
+    fontStyle: 'italic'
   },
-  infoIcon: {
-    //backgroundColor: 'red',
-  }
 });
