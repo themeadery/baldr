@@ -9,13 +9,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 //Import modules for navigation
-import { useScreens } from 'react-native-screens';
+//import { useScreens } from 'react-native-screens';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 //Import Material Design Icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 //Activate the react-native-screens module
-useScreens();
+//Deprecated
+//useScreens();
 
 //Dev instructions footer
 const instructions = Platform.select({

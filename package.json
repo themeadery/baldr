@@ -7,12 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.6.1",
-    "react-native": "^0.57.5",
-    "react-native-gesture-handler": "^1.0.9",
-    "react-native-screens": "^1.0.0-alpha.16",
+    "react": "^16.6.3",
+    "react-native": "^0.57.8",
+    "react-native-gesture-handler": "^1.0.12",
     "react-native-vector-icons": "^6.1.0",
-    "react-navigation": "3.0.0"
+    "react-navigation": "^3.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -20,7 +19,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.4.2",
     "jest": "^23.1.0",
-    "react-test-renderer": "16.6.1"
+    "react-test-renderer": "^16.6.3"
   },
   "jest": {
     "preset": "react-native"
