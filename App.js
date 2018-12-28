@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -9,22 +8,24 @@ import {
   TouchableOpacity,
 } from 'react-native';
 //Import modules for navigation
-//import { useScreens } from 'react-native-screens';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 //Import Material Design Icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-//Activate the react-native-screens module
-//Deprecated
-//useScreens();
-
 class UnfermentedScreen extends React.Component {
+
+  //Set autofocus for input using the ref in TextInput
+  componentDidMount() {
+    setTimeout(() => {
+      this.brixInput.focus();
+    }, 200);
+  }
+
+  //Need componentWillUnmount cleanup
   
   //Initialize states to do Math on
   constructor(props) {
     super(props);
-    //Set initial value to the calculated SG of the TextInput placeholder
-    //because doMathOG has not been called, yet
     this.state = {
       originalBrix: 0.0,
       OG: 0.000
@@ -52,8 +53,8 @@ class UnfermentedScreen extends React.Component {
               <View style={styles.bodyRight}>
                 <TextInput
                     style={styles.input}
+                    ref={(input) => { this.brixInput = input; }}
                     underlineColorAndroid="transparent"
-                    autoFocus={true}
                     placeholder="0.0"
                     keyboardType="numeric"
                     maxLength={5}
@@ -104,6 +105,13 @@ class UnfermentedScreen extends React.Component {
 }
 
 class FermentingScreen extends React.Component {
+
+  //Set autofocus for input using the ref in TextInput
+  //componentDidMount() {
+  //  setTimeout(() => {
+  //    this.originalBrixInput.focus();
+  //  }, 200);
+  //}
   
   //Initialize states to do Math on
   constructor(props) {
@@ -195,8 +203,8 @@ class FermentingScreen extends React.Component {
                   </Text>
                   <TextInput
                     style={styles.input}
+                    ref={(input) => { this.originalBrixInput = input; }}
                     underlineColorAndroid="transparent"
-                    autoFocus={true}
                     placeholder="10.0"
                     keyboardType="numeric"
                     maxLength={5}
