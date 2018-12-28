@@ -43,61 +43,61 @@ class UnfermentedScreen extends React.Component {
     return (
       <View style={styles.container}>
             
-            <View style={styles.body}>
+        <View style={styles.body}>
 
-                <View style={styles.bodyLeft}>
-                  <Text style={styles.large}>Brix:</Text>
-                  <Text style={styles.large}>Specific Gravity:</Text>
-                </View>
+          <View style={styles.unfermentedBodyLeft}>
+            <Text style={styles.large}>Brix:</Text>
+            <Text style={styles.large}>Specific Gravity:</Text>
+          </View>
 
-              <View style={styles.bodyRight}>
-                <TextInput
-                    style={styles.input}
-                    ref={(input) => { this.brixInput = input; }}
-                    underlineColorAndroid="transparent"
-                    placeholder="0.0"
-                    keyboardType="numeric"
-                    maxLength={5}
-                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
-                />
-                
-                {/*Show the calculated value and rounds to 3 decimal places*/}
-                <Text style={styles.calculated}>
-                  {this.state.OG.toFixed(3)}
-                </Text>
-              </View>
+          <View style={styles.unfermentedBodyRight}>
+            <TextInput
+                style={styles.input}
+                ref={(input) => { this.brixInput = input; }}
+                underlineColorAndroid="transparent"
+                placeholder="0.0"
+                keyboardType="numeric"
+                maxLength={5}
+                onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
+            />
+            
+            {/*Show the calculated value and rounds to 3 decimal places*/}
+            <Text style={styles.calculated}>
+              {this.state.OG.toFixed(3)}
+            </Text>
+          </View>
 
+        </View>
+    
+        <View style={styles.footerView}>
+
+          <View style={styles.footerViewLeft}>
+            <Text style={styles.footerText}>
+              <Text style={styles.footerTextBoldH1}>Equation:</Text>
+              {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
+              {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
+              {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
+
+              {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
+              {'\n'}In Norse mythology Baldr is the God of Light
+              {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
+            </Text>
+          </View>
+
+          <View style={styles.footerViewRight}>
+            <View style={{paddingTop: 18}}>
+              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <MaterialIcons name="info" size={24}/>
+              </TouchableOpacity>
             </View>
-        
-            <View style={styles.footerView}>
-
-              <View style={styles.footerViewLeft}>
-                <Text style={styles.footerText}>
-                  <Text style={styles.footerTextBoldH1}>Equation:</Text>
-                  {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
-                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
-                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
-
-                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
-                  {'\n'}In Norse mythology Baldr is the God of Light
-                  {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-                </Text>
-              </View>
-
-              <View style={styles.footerViewRight}>
-                <View style={{paddingTop: 18}}>
-                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={24}/>
-                  </TouchableOpacity>
-                </View>
-                <View style={{paddingTop: 24}}>
-                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={24}/>
-                  </TouchableOpacity>
-                </View>
-              </View>
-
+            <View style={{paddingTop: 24}}>
+              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <MaterialIcons name="info" size={24}/>
+              </TouchableOpacity>
             </View>
+          </View>
+
+        </View>
 
       </View>
     );
@@ -195,119 +195,128 @@ class FermentingScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>    
-            <View style={styles.body}>
-                <View style={styles.row}>
-                  <Text style={styles.large}>
-                    Original Brix:
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    ref={(input) => { this.originalBrixInput = input; }}
-                    underlineColorAndroid="transparent"
-                    placeholder="10.0"
-                    keyboardType="numeric"
-                    maxLength={5}
-                    onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
-                  />
-                 <Text style={styles.large}>
-                  OG:
-                </Text>
-                {/*Show the calculated value and rounds to 3 decimal places*/}
-                <Text style={styles.calculated}>
-                  {this.state.OG.toFixed(3)}
-                </Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.large}>
-                    Current Brix:
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    underlineColorAndroid="transparent"
-                    placeholder="5.0"
-                    keyboardType="numeric"
-                    maxLength={5}
-                    onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
-                  />
-                  <Text style={styles.large}>
-                  FG:
-                </Text>
-                <Text style={styles.calculated}>
-                  {this.state.FG.toFixed(3)}
-                </Text>
-                </View>
-              <View style={styles.row}>
-                <Text style={styles.large}>
-                  ABV:
-                </Text>
-                <Text style={styles.calculated}>
-                  {this.state.ABV.toFixed(1)}%
-                </Text>
-              </View>
-              <View style={styles.row}>
-                  <Text style={styles.smallText}>Apparent Attenuation:</Text>
-                <Text style={styles.calculatedSmall}>
-                  {this.state.AA.toFixed(1)}%
-                </Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.smallText}>OE:</Text>
-                <Text style={styles.calculatedSmall}>
-                  {this.state.OE.toFixed(2)}°P
-                </Text>
-                <Text style={styles.smallText}>AE:</Text>
-                <Text style={styles.calculatedSmall}>
-                  {this.state.AE.toFixed(2)}°P
-                </Text>
-                <Text style={styles.smallText}>RE:</Text>
-                <Text style={styles.calculatedSmall}>
-                  {this.state.RE.toFixed(2)}°P
-                </Text>
-                <Text style={styles.smallText}>ABW:</Text>
-                <Text style={styles.calculatedSmall}>
-                  {this.state.ABW.toFixed(1)}%
-                </Text>
-              </View>
+      <View style={styles.container}>
+  
+        <View style={styles.body}>
+          
+          <View style={styles.fermentingBodyLeft}>
+            <Text style={styles.large}>
+              Original Brix:
+            </Text>
+            <Text style={styles.large}>
+              Current Brix:
+            </Text>
+            <Text style={styles.large}>
+              ABV:
+            </Text>
+
+            <Text style={styles.smallText}>
+              Apparent Attenuation:
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.AA.toFixed(1)}%
+            </Text>
+            <Text style={styles.smallText}>
+              OE:
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.OE.toFixed(2)}°P
+            </Text>
+            <Text style={styles.smallText}>
+              AE:
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.AE.toFixed(2)}°P
+            </Text>
+            <Text style={styles.smallText}>
+              RE:
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.RE.toFixed(2)}°P
+            </Text>
+            <Text style={styles.smallText}>
+              ABW:
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.ABW.toFixed(1)}%
+            </Text>
+          </View>
+
+          <View style={styles.fermentingBodyRight}>
+            <TextInput
+                style={styles.input}
+                ref={(input) => { this.originalBrixInput = input; }}
+                underlineColorAndroid="transparent"
+                placeholder="10.0"
+                keyboardType="numeric"
+                maxLength={5}
+                onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
+            />
+            <Text style={styles.large}>
+              OG:
+            </Text>
+            {/*Show the calculated value and rounds to 3 decimal places*/}
+            <Text style={styles.calculated}>
+              {this.state.OG.toFixed(3)}
+            </Text>
+            <TextInput
+                style={styles.input}
+                underlineColorAndroid="transparent"
+                placeholder="5.0"
+                keyboardType="numeric"
+                maxLength={5}
+                onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
+              />
+            <Text style={styles.large}>
+              FG:
+            </Text>
+            <Text style={styles.calculated}>
+              {this.state.FG.toFixed(3)}
+            </Text>
+            <Text style={styles.calculated}>
+              {this.state.ABV.toFixed(1)}%
+            </Text>
+          </View>
+
+        </View>
+    
+        <View style={styles.footerView}>
+
+          <View style={styles.footerViewLeft}>
+            <Text style={styles.footerText}>
+              <Text style={styles.footerTextBoldH1}>Equations:</Text>
+              {'\n'}OG = ((OB / WCF) / (258.6-(((OB / WCF) / 258.2)*227.1))) + 1
+              {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
+              {'\n'}ABV = ABW * (FG/0.794)
+              {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
+              {'\n'}OE
+              {'\n'}AE
+              {'\n'}RE
+              {'\n'}ABW            
+
+              {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
+              {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
+                
+              {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
+              {'\n'}In Norse mythology Baldr is the God of Light
+              {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
+            </Text>
+          </View>
+
+          <View style={styles.footerViewRight}>
+            <View style={{paddingTop: 65}}>
+              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <MaterialIcons name="info" size={24}/>
+              </TouchableOpacity>
             </View>
-        
-            <View style={styles.footerView}>
-
-              <View style={styles.footerViewLeft}>
-                <Text style={styles.footerText}>
-                  <Text style={styles.footerTextBoldH1}>Equations:</Text>
-                  {'\n'}OG = ((OB / WCF) / (258.6-(((OB / WCF) / 258.2)*227.1))) + 1
-                  {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
-                  {'\n'}ABV = ABW * (FG/0.794)
-                  {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
-                  {'\n'}OE
-                  {'\n'}AE
-                  {'\n'}RE
-                  {'\n'}ABW            
-
-                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
-                  {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
-                    
-                  {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
-                  {'\n'}In Norse mythology Baldr is the God of Light
-                  {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-                </Text>
-              </View>
-
-              <View style={styles.footerViewRight}>
-                <View style={{paddingTop: 65}}>
-                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={24}/>
-                  </TouchableOpacity>
-                </View>
-                <View style={{paddingTop: 85}}>
-                  <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={24}/>
-                  </TouchableOpacity>
-                </View>
-              </View>
-
+            <View style={{paddingTop: 85}}>
+              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <MaterialIcons name="info" size={24}/>
+              </TouchableOpacity>
             </View>
+          </View>
+
+        </View>
 
       </View>
     );
@@ -343,29 +352,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F6',
   },
   body: {
-    //backgroundColor: 'green',
-    backgroundColor: '#E1E2E1',
+    backgroundColor: 'green',
+    //backgroundColor: '#E1E2E1',
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 20,
-    //paddingTop: 20,
-    //paddingBottom: 20,
-    //paddingLeft: 40,
     elevation: 2
   },
-  bodyLeft: {
-    //backgroundColor: 'lightblue',
+  unfermentedBodyLeft: {
+    backgroundColor: 'lightblue',
     justifyContent: 'space-between',
     paddingTop: 12,
     paddingRight: 10
   },
-  bodyRight: {
-    //backgroundColor: 'skyblue'
+  unfermentedBodyRight: {
+    backgroundColor: 'skyblue'
   },
-  row: {
-    backgroundColor: 'yellow',
-    flexDirection: 'row',
-    alignItems: 'center',
+  fermentingBodyLeft: {
+    backgroundColor: 'lightblue',
+    justifyContent: 'space-between',
+    paddingTop: 12,
+    paddingRight: 10
+  },
+  fermentingBodyRight: {
+    backgroundColor: 'skyblue'
   },
   large: {
     color: 'black',
