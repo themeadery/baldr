@@ -26,8 +26,8 @@ class UnfermentedScreen extends React.Component {
     //Set initial value to the calculated SG of the TextInput placeholder
     //because doMathOG has not been called, yet
     this.state = {
-      originalBrix: 10.0,
-      OG: 1.038
+      originalBrix: 0.0,
+      OG: 0.000
     };
   }
 
@@ -43,30 +43,29 @@ class UnfermentedScreen extends React.Component {
       <View style={styles.container}>
             
             <View style={styles.body}>
-                <View style={styles.row}>
-                  <Text style={styles.large}>
-                    Brix:
-                  </Text>
-                  <TextInput
+
+                <View style={styles.bodyLeft}>
+                  <Text style={styles.large}>Brix:</Text>
+                  <Text style={styles.large}>Specific Gravity:</Text>
+                </View>
+
+              <View style={styles.bodyRight}>
+                <TextInput
                     style={styles.input}
                     underlineColorAndroid="transparent"
                     autoFocus={true}
-                    placeholder="10.0"
+                    placeholder="0.0"
                     keyboardType="numeric"
                     maxLength={5}
                     onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
-                  />
-                </View>
-
-              <View style={styles.row}>
-                <Text style={styles.large}>
-                  Specific Gravity:
-                </Text>
+                />
+                
                 {/*Show the calculated value and rounds to 3 decimal places*/}
                 <Text style={styles.calculated}>
                   {this.state.OG.toFixed(3)}
                 </Text>
               </View>
+
             </View>
         
             <View style={styles.footerView}>
@@ -87,12 +86,12 @@ class UnfermentedScreen extends React.Component {
               <View style={styles.footerViewRight}>
                 <View style={{paddingTop: 18}}>
                   <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={22}/>
+                    <MaterialIcons name="info" size={24}/>
                   </TouchableOpacity>
                 </View>
                 <View style={{paddingTop: 24}}>
                   <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={22}/>
+                    <MaterialIcons name="info" size={24}/>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -290,12 +289,12 @@ class FermentingScreen extends React.Component {
               <View style={styles.footerViewRight}>
                 <View style={{paddingTop: 65}}>
                   <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={22}/>
+                    <MaterialIcons name="info" size={24}/>
                   </TouchableOpacity>
                 </View>
                 <View style={{paddingTop: 85}}>
                   <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                    <MaterialIcons name="info" size={22}/>
+                    <MaterialIcons name="info" size={24}/>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -336,13 +335,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F6',
   },
   body: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    //backgroundColor: 'green',
     backgroundColor: '#E1E2E1',
+    flexDirection: 'row',
+    justifyContent: 'center',
     padding: 20,
+    //paddingTop: 20,
+    //paddingBottom: 20,
+    //paddingLeft: 40,
     elevation: 2
   },
+  bodyLeft: {
+    //backgroundColor: 'lightblue',
+    justifyContent: 'space-between',
+    paddingTop: 12,
+    paddingRight: 10
+  },
+  bodyRight: {
+    //backgroundColor: 'skyblue'
+  },
   row: {
+    backgroundColor: 'yellow',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -350,10 +363,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 25,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left'
   },
   input: {
-    margin: 10,
+    //margin: 10,
     color: 'black',
     width: 85,
     fontSize: 25,
@@ -366,7 +379,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    margin: 10,
+    paddingTop: 12
+    //margin: 10,
   },
   calculatedSmall: {
     color: 'green',
