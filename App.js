@@ -31,7 +31,7 @@ class UnfermentedScreen extends React.Component {
     super(props);
     this.state = {
       originalBrix: 0.0,
-      OG: 0.000
+      OG: 1.000
     };
   }
 
@@ -67,7 +67,7 @@ class UnfermentedScreen extends React.Component {
               />
               
               {/*Show the calculated value and rounds to 3 decimal places*/}
-              <Text style={styles.calculated}>
+              <Text style={styles.calculatedSG}>
                 {this.state.OG.toFixed(3)}
               </Text>
             </View>
@@ -125,7 +125,7 @@ class FermentingScreen extends React.Component {
     super(props);
     this.state = {
       originalBrix: 0.0,
-      OG: 0.000,
+      OG: 1.000,
       OE: 0.00,
       currentBrix: 0.0,
       FG: 0.000,
@@ -212,13 +212,13 @@ class FermentingScreen extends React.Component {
               <Text style={styles.large}>
                 Original Brix:
               </Text>
-              <Text style={styles.large}>
+              <Text style={styles.medium}>
                 OG:
               </Text>
               <Text style={styles.large}>
                 Current Brix:
               </Text>
-              <Text style={styles.large}>
+              <Text style={styles.medium}>
                 FG:
               </Text>
               <Text style={styles.bigABV}>
@@ -252,7 +252,7 @@ class FermentingScreen extends React.Component {
                   onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
               />
               {/*Show the calculated value and rounds to 3 decimal places*/}
-              <Text style={styles.calculated}>
+              <Text style={styles.calculatedOGFG}>
                 {this.state.OG.toFixed(3)}
               </Text>
               <TextInput
@@ -263,7 +263,7 @@ class FermentingScreen extends React.Component {
                   maxLength={5}
                   onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
                 />
-              <Text style={styles.calculated}>
+              <Text style={styles.calculatedOGFG}>
                 {this.state.FG.toFixed(3)}
               </Text>
               <Text style={styles.calculatedABV}>
@@ -372,25 +372,24 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   dataTableContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#F8F8F9',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 4,
     flexDirection: 'row',
-    //justifyContent: 'center',
+    justifyContent: 'space-between',
     padding: 18,
+    flex: 1
   },
   unfermentedBodyLeft: {
     //backgroundColor: 'lightblue',
-    //paddingTop: 10,
-    paddingRight: 24
+    //paddingRight: 24
   },
   unfermentedBodyRight: {
     //backgroundColor: 'skyblue'
   },
   fermentingBodyLeft: {
     //backgroundColor: 'lightblue',
-    //paddingTop: 10,
-    paddingRight: 54
+    //paddingRight: 58
   },
   fermentingBodyRight: {
     //backgroundColor: 'skyblue',
@@ -398,6 +397,14 @@ const styles = StyleSheet.create({
   large: {
     color: 'black',
     fontSize: 24,
+    fontWeight: 'bold',
+    paddingTop: 8,
+    paddingBottom: 8,
+    textAlign: 'left'
+  },
+  medium: {
+    color: 'black',
+    fontSize: 18,
     fontWeight: 'bold',
     paddingTop: 6,
     paddingBottom: 6,
@@ -418,6 +425,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   input: {
+    backgroundColor: '#e1ffb1',
     color: 'black',
     height: 50,
     width: 80,
@@ -426,21 +434,28 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     textAlign: 'center',
   },
-  calculated: {
+  calculatedSG: {
     color: 'green',
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    //paddingTop: 2,
-    paddingBottom: 4
+    paddingTop: 2
+  },
+  calculatedOGFG: {
+    color: 'green',
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingTop: 2,
+    paddingBottom: 2
   },
   calculatedABV: {
     color: 'green',
-    fontSize: 32,
+    fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingTop: 4,
-    paddingBottom: 8
+    paddingTop: 2,
+    paddingBottom: 2
   },
   calculatedSmall: {
     color: 'black',
