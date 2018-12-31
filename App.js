@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,17 +8,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 //Import modules for navigation
-import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+import {
+  createMaterialTopTabNavigator,
+  createAppContainer
+} from 'react-navigation';
 //Import Material Design Icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class UnfermentedScreen extends React.Component {
 
   //Set autofocus for input using the ref in TextInput
+  //change to subscribe to navigation lifecycle https://reactnavigation.org/docs/en/navigation-prop.html#addlistener-subscribe-to-updates-to-navigation-lifecycle
   componentDidMount() {
-    setTimeout(() => {
-      this.brixInput.focus();
-    }, 200);
+     this.brixInput.focus();
   }
 
   //Need componentWillUnmount cleanup
@@ -117,11 +119,11 @@ class FermentingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      originalBrix: 10.0,
-      OG: 1.038,
+      originalBrix: 0.0,
+      OG: 0.000,
       OE: 0.00,
-      currentBrix: 5.0,
-      FG: 1.0086,
+      currentBrix: 0.0,
+      FG: 0.000,
       AE: 0.00,
       RE: 0.00,
       ABW: 0.0,
@@ -204,41 +206,31 @@ class FermentingScreen extends React.Component {
               Original Brix:
             </Text>
             <Text style={styles.large}>
+              OG:
+            </Text>
+            <Text style={styles.large}>
               Current Brix:
+            </Text>
+            <Text style={styles.large}>
+              FG:
             </Text>
             <Text style={styles.large}>
               ABV:
             </Text>
-
             <Text style={styles.smallText}>
               Apparent Attenuation:
             </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.AA.toFixed(1)}%
+            <Text style={styles.smallText}>
+              Original Extract:
             </Text>
             <Text style={styles.smallText}>
-              OE:
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.OE.toFixed(2)}°P
+              Apparent Extract:
             </Text>
             <Text style={styles.smallText}>
-              AE:
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.AE.toFixed(2)}°P
-            </Text>
-            <Text style={styles.smallText}>
-              RE:
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.RE.toFixed(2)}°P
+              Real Extract:
             </Text>
             <Text style={styles.smallText}>
               ABW:
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.ABW.toFixed(1)}%
             </Text>
           </View>
 
@@ -247,14 +239,11 @@ class FermentingScreen extends React.Component {
                 style={styles.input}
                 ref={(input) => { this.originalBrixInput = input; }}
                 underlineColorAndroid="transparent"
-                placeholder="10.0"
+                placeholder="0.0"
                 keyboardType="numeric"
                 maxLength={5}
                 onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
             />
-            <Text style={styles.large}>
-              OG:
-            </Text>
             {/*Show the calculated value and rounds to 3 decimal places*/}
             <Text style={styles.calculated}>
               {this.state.OG.toFixed(3)}
@@ -262,19 +251,31 @@ class FermentingScreen extends React.Component {
             <TextInput
                 style={styles.input}
                 underlineColorAndroid="transparent"
-                placeholder="5.0"
+                placeholder="0.0"
                 keyboardType="numeric"
                 maxLength={5}
                 onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
               />
-            <Text style={styles.large}>
-              FG:
-            </Text>
             <Text style={styles.calculated}>
               {this.state.FG.toFixed(3)}
             </Text>
             <Text style={styles.calculated}>
               {this.state.ABV.toFixed(1)}%
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.AA.toFixed(1)}%
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.OE.toFixed(2)} °P
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.AE.toFixed(2)} °P
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.RE.toFixed(2)} °P
+            </Text>
+            <Text style={styles.calculatedSmall}>
+              {this.state.ABW.toFixed(1)}%
             </Text>
           </View>
 
@@ -362,7 +363,7 @@ const styles = StyleSheet.create({
   unfermentedBodyLeft: {
     backgroundColor: 'lightblue',
     justifyContent: 'space-between',
-    paddingTop: 12,
+    paddingTop: 10,
     paddingRight: 10
   },
   unfermentedBodyRight: {
@@ -371,23 +372,24 @@ const styles = StyleSheet.create({
   fermentingBodyLeft: {
     backgroundColor: 'lightblue',
     justifyContent: 'space-between',
-    paddingTop: 12,
+    paddingTop: 10,
     paddingRight: 10
   },
   fermentingBodyRight: {
-    backgroundColor: 'skyblue'
+    backgroundColor: 'skyblue',
+    justifyContent: 'space-between'
   },
   large: {
     color: 'black',
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'left'
   },
   input: {
-    //margin: 10,
     color: 'black',
-    width: 85,
-    fontSize: 25,
+    height: 50,
+    width: 80,
+    fontSize: 24,
     borderRadius: 4,
     borderWidth: 2,
     textAlign: 'center',
@@ -396,15 +398,13 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 25,
     fontWeight: 'bold',
-    textAlign: 'center',
-    paddingTop: 12
-    //margin: 10,
+    textAlign: 'left',
+    //paddingTop: 12
   },
   calculatedSmall: {
-    color: 'green',
+    color: 'black',
     fontWeight: 'bold',
-    textAlign: 'center',
-    margin: 10,
+    textAlign: 'left',
   },
   smallText: {
     color: 'black',
