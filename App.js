@@ -85,7 +85,7 @@ class UnfermentedScreen extends React.Component {
               {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
               {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
 
-              {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
+              {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
               {'\n'}In Norse mythology Baldr is the God of Light
               {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
             </Text>
@@ -308,7 +308,7 @@ class FermentingScreen extends React.Component {
               {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
               {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
                 
-              {'\n'}{'\n'}<Text style={styles.footerTextBoldH1}>Who is Baldr?</Text>
+              {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
               {'\n'}In Norse mythology Baldr is the God of Light
               {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
             </Text>
@@ -351,7 +351,8 @@ const TabNavigator = createMaterialTopTabNavigator({
       backgroundColor: 'black',
     },
     labelStyle: {
-      fontWeight: 'bold',
+      fontFamily: 'Montserrat-Bold',
+      fontSize: 14
     },
   },
 });
@@ -361,7 +362,7 @@ export default createAppContainer(TabNavigator);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F6'
+    backgroundColor: '#F2F2F3'
   },
   body: {
     //backgroundColor: 'green',
@@ -372,9 +373,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   dataTableContainer: {
-    backgroundColor: '#F8F8F9',
-    borderWidth: 1,
+    backgroundColor: '#F2F2F3',
     borderRadius: 4,
+    elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 18,
@@ -397,7 +398,8 @@ const styles = StyleSheet.create({
   large: {
     color: 'black',
     fontSize: 24,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'Montserrat-Bold',
     paddingTop: 8,
     paddingBottom: 8,
     textAlign: 'left'
@@ -405,21 +407,24 @@ const styles = StyleSheet.create({
   medium: {
     color: 'black',
     fontSize: 18,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'Montserrat-Bold',
     paddingTop: 6,
     paddingBottom: 6,
     textAlign: 'left'
   },
   small: {
     color: 'black',
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'Montserrat-Medium',
     paddingTop: 4,
     paddingBottom: 4
   },
   bigABV: {
     color: 'black',
     fontSize: 32,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'Montserrat-Bold',
     paddingTop: 2,
     paddingBottom: 6,
     textAlign: 'left'
@@ -469,7 +474,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   footerView: {
-    backgroundColor: '#F5F5F6',
+    backgroundColor: '#F2F2F3',
     //backgroundColor: 'green',
     paddingTop: 8,
     paddingLeft: 8,
@@ -501,5 +506,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     fontStyle: 'italic'
+  },
+  footerTextViking: {
+    color: 'black',
+    textAlign: 'left',
+    fontSize: 16,
+    fontFamily: 'Viking'
+    //fontWeight: 'bold',
   },
 });
