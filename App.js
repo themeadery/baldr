@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   TextInput,
   Linking,
   TouchableOpacity,
@@ -47,26 +48,30 @@ class UnfermentedScreen extends React.Component {
             
         <View style={styles.body}>
 
-          <View style={styles.unfermentedBodyLeft}>
-            <Text style={styles.large}>Brix:</Text>
-            <Text style={styles.large}>Specific Gravity:</Text>
-          </View>
+          <View style={styles.dataTableContainer}>
 
-          <View style={styles.unfermentedBodyRight}>
-            <TextInput
-                style={styles.input}
-                ref={(input) => { this.brixInput = input; }}
-                underlineColorAndroid="transparent"
-                placeholder="0.0"
-                keyboardType="numeric"
-                maxLength={5}
-                onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
-            />
-            
-            {/*Show the calculated value and rounds to 3 decimal places*/}
-            <Text style={styles.calculated}>
-              {this.state.OG.toFixed(3)}
-            </Text>
+            <View style={styles.unfermentedBodyLeft}>
+              <Text style={styles.large}>Brix:</Text>
+              <Text style={styles.large}>Specific Gravity:</Text>
+            </View>
+
+            <View style={styles.unfermentedBodyRight}>
+              <TextInput
+                  style={styles.input}
+                  ref={(input) => { this.brixInput = input; }}
+                  underlineColorAndroid="transparent"
+                  placeholder="0.0"
+                  keyboardType="numeric"
+                  maxLength={5}
+                  onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
+              />
+              
+              {/*Show the calculated value and rounds to 3 decimal places*/}
+              <Text style={styles.calculated}>
+                {this.state.OG.toFixed(3)}
+              </Text>
+            </View>
+
           </View>
 
         </View>
@@ -200,87 +205,92 @@ class FermentingScreen extends React.Component {
       <View style={styles.container}>
   
         <View style={styles.body}>
-          
-          <View style={styles.fermentingBodyLeft}>
-            <Text style={styles.large}>
-              Original Brix:
-            </Text>
-            <Text style={styles.large}>
-              OG:
-            </Text>
-            <Text style={styles.large}>
-              Current Brix:
-            </Text>
-            <Text style={styles.large}>
-              FG:
-            </Text>
-            <Text style={styles.large}>
-              ABV:
-            </Text>
-            <Text style={styles.smallText}>
-              Apparent Attenuation:
-            </Text>
-            <Text style={styles.smallText}>
-              Original Extract:
-            </Text>
-            <Text style={styles.smallText}>
-              Apparent Extract:
-            </Text>
-            <Text style={styles.smallText}>
-              Real Extract:
-            </Text>
-            <Text style={styles.smallText}>
-              ABW:
-            </Text>
-          </View>
 
-          <View style={styles.fermentingBodyRight}>
-            <TextInput
-                style={styles.input}
-                ref={(input) => { this.originalBrixInput = input; }}
-                underlineColorAndroid="transparent"
-                placeholder="0.0"
-                keyboardType="numeric"
-                maxLength={5}
-                onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
-            />
-            {/*Show the calculated value and rounds to 3 decimal places*/}
-            <Text style={styles.calculated}>
-              {this.state.OG.toFixed(3)}
-            </Text>
-            <TextInput
-                style={styles.input}
-                underlineColorAndroid="transparent"
-                placeholder="0.0"
-                keyboardType="numeric"
-                maxLength={5}
-                onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
+          <View style={styles.dataTableContainer}>
+          
+            <View style={styles.fermentingBodyLeft}>
+              <Text style={styles.large}>
+                Original Brix:
+              </Text>
+              <Text style={styles.large}>
+                OG:
+              </Text>
+              <Text style={styles.large}>
+                Current Brix:
+              </Text>
+              <Text style={styles.large}>
+                FG:
+              </Text>
+              <Text style={styles.bigABV}>
+                ABV:
+              </Text>
+              <Text style={styles.small}>
+                Apparent Attenuation:
+              </Text>
+              <Text style={styles.small}>
+                Original Extract:
+              </Text>
+              <Text style={styles.small}>
+                Apparent Extract:
+              </Text>
+              <Text style={styles.small}>
+                Real Extract:
+              </Text>
+              <Text style={styles.small}>
+                ABW:
+              </Text>
+            </View>
+
+            <View style={styles.fermentingBodyRight}>
+              <TextInput
+                  style={styles.input}
+                  ref={(input) => { this.originalBrixInput = input; }}
+                  underlineColorAndroid="transparent"
+                  placeholder="0.0"
+                  keyboardType="numeric"
+                  maxLength={5}
+                  onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
               />
-            <Text style={styles.calculated}>
-              {this.state.FG.toFixed(3)}
-            </Text>
-            <Text style={styles.calculated}>
-              {this.state.ABV.toFixed(1)}%
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.AA.toFixed(1)}%
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.OE.toFixed(2)} °P
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.AE.toFixed(2)} °P
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.RE.toFixed(2)} °P
-            </Text>
-            <Text style={styles.calculatedSmall}>
-              {this.state.ABW.toFixed(1)}%
-            </Text>
+              {/*Show the calculated value and rounds to 3 decimal places*/}
+              <Text style={styles.calculated}>
+                {this.state.OG.toFixed(3)}
+              </Text>
+              <TextInput
+                  style={styles.input}
+                  underlineColorAndroid="transparent"
+                  placeholder="0.0"
+                  keyboardType="numeric"
+                  maxLength={5}
+                  onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
+                />
+              <Text style={styles.calculated}>
+                {this.state.FG.toFixed(3)}
+              </Text>
+              <Text style={styles.calculatedABV}>
+                {this.state.ABV.toFixed(1)}%
+              </Text>
+              <Text style={styles.calculatedSmall}>
+                {this.state.AA.toFixed(1)}%
+              </Text>
+              <Text style={styles.calculatedSmall}>
+                {this.state.OE.toFixed(2)} °P
+              </Text>
+              <Text style={styles.calculatedSmall}>
+                {this.state.AE.toFixed(2)} °P
+              </Text>
+              <Text style={styles.calculatedSmall}>
+                {this.state.RE.toFixed(2)} °P
+              </Text>
+              <Text style={styles.calculatedSmall}>
+                {this.state.ABW.toFixed(1)}%
+              </Text>
+            </View>
+
           </View>
 
         </View>
     
+        <ScrollView style={{ flex: 1 }}>
         <View style={styles.footerView}>
 
           <View style={styles.footerViewLeft}>
@@ -318,6 +328,7 @@ class FermentingScreen extends React.Component {
           </View>
 
         </View>
+        </ScrollView>
 
       </View>
     );
@@ -350,39 +361,60 @@ export default createAppContainer(TabNavigator);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F6',
+    backgroundColor: '#F5F5F6'
   },
   body: {
-    backgroundColor: 'green',
-    //backgroundColor: '#E1E2E1',
+    //backgroundColor: 'green',
+    backgroundColor: '#E1E2E1',
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 20,
-    elevation: 2
+    padding: 18,
+    borderBottomWidth: 1
+  },
+  dataTableContainer: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 6,
+    flexDirection: 'row',
+    //justifyContent: 'center',
+    padding: 18,
   },
   unfermentedBodyLeft: {
-    backgroundColor: 'lightblue',
-    justifyContent: 'space-between',
-    paddingTop: 10,
-    paddingRight: 10
+    //backgroundColor: 'lightblue',
+    //paddingTop: 10,
+    paddingRight: 24
   },
   unfermentedBodyRight: {
-    backgroundColor: 'skyblue'
+    //backgroundColor: 'skyblue'
   },
   fermentingBodyLeft: {
-    backgroundColor: 'lightblue',
-    justifyContent: 'space-between',
-    paddingTop: 10,
-    paddingRight: 10
+    //backgroundColor: 'lightblue',
+    //paddingTop: 10,
+    paddingRight: 54
   },
   fermentingBodyRight: {
-    backgroundColor: 'skyblue',
-    justifyContent: 'space-between'
+    //backgroundColor: 'skyblue',
   },
   large: {
     color: 'black',
     fontSize: 24,
     fontWeight: 'bold',
+    paddingTop: 6,
+    paddingBottom: 6,
+    textAlign: 'left'
+  },
+  small: {
+    color: 'black',
+    fontWeight: 'bold',
+    paddingTop: 4,
+    paddingBottom: 4
+  },
+  bigABV: {
+    color: 'black',
+    fontSize: 32,
+    fontWeight: 'bold',
+    paddingTop: 2,
+    paddingBottom: 6,
     textAlign: 'left'
   },
   input: {
@@ -396,24 +428,26 @@ const styles = StyleSheet.create({
   },
   calculated: {
     color: 'green',
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'left',
-    //paddingTop: 12
+    textAlign: 'center',
+    //paddingTop: 2,
+    paddingBottom: 4
+  },
+  calculatedABV: {
+    color: 'green',
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingTop: 4,
+    paddingBottom: 8
   },
   calculatedSmall: {
     color: 'black',
-    fontWeight: 'bold',
-    textAlign: 'left',
-  },
-  smallText: {
-    color: 'black',
-    fontWeight: 'bold',
-  },
-  instructions: {
+    //fontWeight: 'bold',
     textAlign: 'center',
-    color: '#333333',
-    margin: 10,
+    paddingTop: 4,
+    paddingBottom: 4
   },
   url: {
     textDecorationLine: 'underline',
