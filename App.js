@@ -75,19 +75,19 @@ class UnfermentedScreen extends React.Component {
                 {'\n'}{'\n'}<Text style={styles.medium}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
                 This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
 
-                {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
+                {'\n'}{'\n'}<Text style={styles.footerTextVikingH2}>Who is Baldr?</Text>
                 {'\n'}In Norse mythology Baldr is the God of Light
                 {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
               </Text>
             </View>
 
             <View style={styles.footerViewRight}>
-              <View style={{paddingTop: 18}}>
+              <View style={{paddingTop: 14}}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
               </View>
-              <View style={{paddingTop: 24}}>
+              <View style={{paddingTop: 18}}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
@@ -279,26 +279,26 @@ class FermentingScreen extends React.Component {
                 {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
                 {'\n'}ABV = ABW * (FG/0.794)
                 {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
-                {'\n'}OE
-                {'\n'}AE
-                {'\n'}RE
-                {'\n'}ABW            
+                {'\n'}OE = -668.962 + 1262.45 * OG - 776.43 * (OG^2) + 182.94 * (OG^3)
+                {'\n'}AE = -668.962 + 1262.45 * FG - 776.43 * (FG^2) + 182.94 * (FG^3)
+                {'\n'}RE = 0.8114 * AE + 0.1886 * OE
+                {'\n'}ABW = (OE - RE) / (2.0665 - 0.010665 * OE)
 
                 {'\n'}{'\n'}<Text style={styles.medium}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
                 This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
                   
-                {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
+                {'\n'}{'\n'}<Text style={styles.footerTextVikingH2}>Who is Baldr?</Text>
                 {'\n'}In Norse mythology Baldr is the God of Light
                 {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
               </Text>
             </View>
             <View style={styles.footerViewRight}>
-              <View style={{paddingTop: 65}}>
+              <View style={{paddingTop: 52}}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
               </View>
-              <View style={{paddingTop: 85}}>
+              <View style={{paddingTop: 68}}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   },
   small: {
     color: 'black',
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: 'Montserrat-SemiBold',
     paddingTop: 2,
     paddingBottom: 2
   },
@@ -448,9 +448,9 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   url: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Viking',
     textDecorationLine: 'underline',
-    fontSize: 10,
+    fontSize: 8,
   },
   footerViewLeft: {
     //backgroundColor: 'yellow',
@@ -479,7 +479,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'italic'
   },
-  footerTextViking: {
+  footerTextVikingH2: {
     color: 'black',
     textAlign: 'left',
     fontSize: 14,
