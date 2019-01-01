@@ -44,17 +44,13 @@ class UnfermentedScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-            
+      <ScrollView style={styles.scrollViewContainer}>
         <View style={styles.body}>
-
           <View style={styles.dataTableContainer}>
-
             <View style={styles.unfermentedBodyLeft}>
               <Text style={styles.large}>Brix:</Text>
               <Text style={styles.large}>Specific Gravity:</Text>
             </View>
-
             <View style={styles.unfermentedBodyRight}>
               <TextInput
                   style={styles.input}
@@ -64,49 +60,42 @@ class UnfermentedScreen extends React.Component {
                   keyboardType="numeric"
                   maxLength={5}
                   onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
-              />
-              
+              />           
               {/*Show the calculated value and rounds to 3 decimal places*/}
               <Text style={styles.calculatedSG}>
                 {this.state.OG.toFixed(3)}
               </Text>
             </View>
-
           </View>
+          <View style={styles.footerContainer}>
+            <View style={styles.footerViewLeft}>
+              <Text style={styles.footerText}>
+                <Text style={styles.medium}>Equation:</Text>
+                {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
+                {'\n'}{'\n'}<Text style={styles.medium}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
+                This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
 
-        </View>
-    
-        <View style={styles.footerView}>
-
-          <View style={styles.footerViewLeft}>
-            <Text style={styles.footerText}>
-              <Text style={styles.footerTextBoldH1}>Equation:</Text>
-              {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
-              {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
-              {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
-
-              {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
-              {'\n'}In Norse mythology Baldr is the God of Light
-              {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-            </Text>
-          </View>
-
-          <View style={styles.footerViewRight}>
-            <View style={{paddingTop: 18}}>
-              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                <MaterialIcons name="info" size={24}/>
-              </TouchableOpacity>
+                {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
+                {'\n'}In Norse mythology Baldr is the God of Light
+                {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
+              </Text>
             </View>
-            <View style={{paddingTop: 24}}>
-              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                <MaterialIcons name="info" size={24}/>
-              </TouchableOpacity>
+
+            <View style={styles.footerViewRight}>
+              <View style={{paddingTop: 18}}>
+                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                  <MaterialIcons name="info" size={24}/>
+                </TouchableOpacity>
+              </View>
+              <View style={{paddingTop: 24}}>
+                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                  <MaterialIcons name="info" size={24}/>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-
         </View>
-
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -202,12 +191,9 @@ class FermentingScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-  
+      <ScrollView style={styles.scrollViewContainer}>
         <View style={styles.body}>
-
           <View style={styles.dataTableContainer}>
-          
             <View style={styles.fermentingBodyLeft}>
               <Text style={styles.large}>
                 Original Brix:
@@ -240,7 +226,6 @@ class FermentingScreen extends React.Component {
                 ABW:
               </Text>
             </View>
-
             <View style={styles.fermentingBodyRight}>
               <TextInput
                   style={styles.input}
@@ -285,52 +270,43 @@ class FermentingScreen extends React.Component {
                 {this.state.ABW.toFixed(1)}%
               </Text>
             </View>
-
           </View>
+          <View style={styles.footerContainer}>
+            <View style={styles.footerViewLeft}>
+              <Text style={styles.footerText}>
+                <Text style={styles.medium}>Equations:</Text>
+                {'\n'}OG = ((OB / WCF) / (258.6-(((OB / WCF) / 258.2)*227.1))) + 1
+                {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
+                {'\n'}ABV = ABW * (FG/0.794)
+                {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
+                {'\n'}OE
+                {'\n'}AE
+                {'\n'}RE
+                {'\n'}ABW            
 
-        </View>
-    
-        <ScrollView style={{ flex: 1 }}>
-        <View style={styles.footerView}>
-
-          <View style={styles.footerViewLeft}>
-            <Text style={styles.footerText}>
-              <Text style={styles.footerTextBoldH1}>Equations:</Text>
-              {'\n'}OG = ((OB / WCF) / (258.6-(((OB / WCF) / 258.2)*227.1))) + 1
-              {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
-              {'\n'}ABV = ABW * (FG/0.794)
-              {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
-              {'\n'}OE
-              {'\n'}AE
-              {'\n'}RE
-              {'\n'}ABW            
-
-              {'\n'}{'\n'}<Text style={styles.footerTextBoldH2}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied
-              {'\n'}This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
-                
-              {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
-              {'\n'}In Norse mythology Baldr is the God of Light
-              {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
-            </Text>
-          </View>
-
-          <View style={styles.footerViewRight}>
-            <View style={{paddingTop: 65}}>
-              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                <MaterialIcons name="info" size={24}/>
-              </TouchableOpacity>
+                {'\n'}{'\n'}<Text style={styles.medium}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
+                This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
+                  
+                {'\n'}{'\n'}<Text style={styles.footerTextViking}>Who is Baldr?</Text>
+                {'\n'}In Norse mythology Baldr is the God of Light
+                {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
+              </Text>
             </View>
-            <View style={{paddingTop: 85}}>
-              <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                <MaterialIcons name="info" size={24}/>
-              </TouchableOpacity>
+            <View style={styles.footerViewRight}>
+              <View style={{paddingTop: 65}}>
+                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                  <MaterialIcons name="info" size={24}/>
+                </TouchableOpacity>
+              </View>
+              <View style={{paddingTop: 85}}>
+                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                  <MaterialIcons name="info" size={24}/>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-
         </View>
-        </ScrollView>
-
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -360,26 +336,33 @@ const TabNavigator = createMaterialTopTabNavigator({
 export default createAppContainer(TabNavigator);
 
 const styles = StyleSheet.create({
-  container: {
+  scrollViewContainer: {
     flex: 1,
-    backgroundColor: '#F2F2F3'
+    backgroundColor: '#E1E2E1'
   },
   body: {
-    //backgroundColor: 'green',
     backgroundColor: '#E1E2E1',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 18,
-    borderBottomWidth: 1
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    padding: 16,
+    flex: 1
   },
   dataTableContainer: {
-    backgroundColor: '#F2F2F3',
+    backgroundColor: '#F8F8F9',
     borderRadius: 4,
     elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 18,
-    flex: 1
+    padding: 16,
+  },
+  footerContainer: {
+    backgroundColor: '#F8F8F9',
+    borderRadius: 4,
+    elevation: 2,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16,
+    marginTop: 16,
   },
   unfermentedBodyLeft: {
     //backgroundColor: 'lightblue',
@@ -398,7 +381,6 @@ const styles = StyleSheet.create({
   large: {
     color: 'black',
     fontSize: 24,
-    //fontWeight: 'bold',
     fontFamily: 'Montserrat-Bold',
     paddingTop: 8,
     paddingBottom: 8,
@@ -406,8 +388,7 @@ const styles = StyleSheet.create({
   },
   medium: {
     color: 'black',
-    fontSize: 18,
-    //fontWeight: 'bold',
+    fontSize: 16,
     fontFamily: 'Montserrat-Bold',
     paddingTop: 6,
     paddingBottom: 6,
@@ -415,17 +396,15 @@ const styles = StyleSheet.create({
   },
   small: {
     color: 'black',
-    //fontWeight: 'bold',
     fontFamily: 'Montserrat-Medium',
-    paddingTop: 4,
-    paddingBottom: 4
+    paddingTop: 2,
+    paddingBottom: 2
   },
   bigABV: {
     color: 'black',
     fontSize: 32,
-    //fontWeight: 'bold',
     fontFamily: 'Montserrat-Bold',
-    paddingTop: 2,
+    //paddingTop: 2,
     paddingBottom: 6,
     textAlign: 'left'
   },
@@ -452,47 +431,40 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     paddingTop: 2,
-    paddingBottom: 2
+    //paddingBottom: 2
   },
   calculatedABV: {
     color: 'green',
     fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingTop: 2,
+    //paddingTop: 2,
     paddingBottom: 2
   },
   calculatedSmall: {
     color: 'black',
-    //fontWeight: 'bold',
     textAlign: 'center',
-    paddingTop: 4,
-    paddingBottom: 4
+    paddingTop: 2,
+    paddingBottom: 2
   },
   url: {
+    fontFamily: 'Montserrat-SemiBold',
     textDecorationLine: 'underline',
-    fontSize: 12,
-  },
-  footerView: {
-    backgroundColor: '#F2F2F3',
-    //backgroundColor: 'green',
-    paddingTop: 8,
-    paddingLeft: 8,
-    paddingBottom: 20,
-    flexDirection: 'row',
+    fontSize: 10,
   },
   footerViewLeft: {
     //backgroundColor: 'yellow',
-    width: 375,
+    width: 325,
   },
   footerViewRight: {
-    //backgroundColor: 'white',
+    //backgroundColor: 'green',
     paddingLeft: 2
   },
   footerText: {
     color: 'black',
+    fontFamily: 'Montserrat-Medium',
     textAlign: 'left',
-    fontSize: 13,
+    fontSize: 10,
   },
   footerTextBoldH1: {
     color: 'black',
@@ -510,8 +482,7 @@ const styles = StyleSheet.create({
   footerTextViking: {
     color: 'black',
     textAlign: 'left',
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'Viking'
-    //fontWeight: 'bold',
   },
 });
