@@ -259,6 +259,7 @@ class FermentingScreen extends React.Component {
                   keyboardType="numeric"
                   maxLength={5}
                   onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
+                  onSubmitEditing={() => { this.secondTextInput.focus(); }}
               />
               {/*Show the calculated value and rounds to 3 decimal places*/}
               <Text style={styles.calculatedOGFG}>
@@ -266,6 +267,7 @@ class FermentingScreen extends React.Component {
               </Text>
               <TextInput
                   style={styles.input}
+                  ref={input => this.secondTextInput = input}
                   underlineColorAndroid="transparent"
                   placeholder="0.0"
                   keyboardType="numeric"
