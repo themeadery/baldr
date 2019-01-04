@@ -11,28 +11,33 @@ import {
 //Import modules for navigation
 import {
   createMaterialTopTabNavigator,
-  createAppContainer
+  createAppContainer,
+  NavigationEvents
 } from 'react-navigation';
 //Import Material Design Icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class UnfermentedScreen extends React.Component {
-
-  //Set autofocus for input using the ref in TextInput
-  //change to subscribe to navigation lifecycle https://reactnavigation.org/docs/en/navigation-prop.html#addlistener-subscribe-to-updates-to-navigation-lifecycle
-  componentDidMount() {
-     this.brixInput.focus();
-  }
-
-  //Need componentWillUnmount cleanup
   
-  //Initialize states to do Math on
   constructor(props) {
     super(props);
+    //Create the ability to set a ref in TextInput
+    this.textInput = React.createRef();
+    //I don't know what this does
+    this.focusTextInput = this.focusTextInput.bind(this);
+    //Initialize states to do Math on
     this.state = {
       originalBrix: 0.0,
       OG: 1.000
     };
+  }
+
+  //Focus text input function, needs Timeout delay for Tab Navigator quirks
+  focusTextInput() {
+    setTimeout(
+      this.textInput.focus,
+      100
+    );
   }
 
   //Calculate Brix to SG and save the value into the state
@@ -44,7 +49,14 @@ class UnfermentedScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.scrollViewContainer}>
+      //Wrap everything under the Tab Navigator in a ScrollView
+      <ScrollView
+        style={styles.scrollViewContainer}
+      >
+      {/*Subscribe to Navigation Event onDidFocus, change focus to the Brix Input using the ref when this tab is focused*/}
+      <NavigationEvents
+        onDidFocus={this.focusTextInput}
+      />
         <View style={styles.body}>
           <View style={styles.dataTableContainer}>
             <View style={styles.unfermentedBodyLeft}>
@@ -54,7 +66,7 @@ class UnfermentedScreen extends React.Component {
             <View style={styles.unfermentedBodyRight}>
               <TextInput
                   style={styles.input}
-                  ref={(input) => { this.brixInput = input; }}
+                  ref={input => this.textInput = input}
                   underlineColorAndroid="transparent"
                   placeholder="0.0"
                   keyboardType="numeric"
@@ -72,7 +84,7 @@ class UnfermentedScreen extends React.Component {
               <Text style={styles.footerText}>
                 <Text style={styles.medium}>Equation:</Text>
                 {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
-                {'\n'}{'\n'}<Text style={styles.medium}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
+                {'\n'}{'\n'}<Text style={styles.mediumItalic}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
                 This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
 
                 {'\n'}{'\n'}<Text style={styles.footerTextVikingH2}>Who is Baldr?</Text>
@@ -102,16 +114,13 @@ class UnfermentedScreen extends React.Component {
 
 class FermentingScreen extends React.Component {
 
-  //Set autofocus for input using the ref in TextInput
-  //componentDidMount() {
-  //  setTimeout(() => {
-  //    this.originalBrixInput.focus();
-  //  }, 200);
-  //}
-  
-  //Initialize states to do Math on
   constructor(props) {
     super(props);
+    //Create the ability to set a ref in TextInput
+    this.textInput = React.createRef();
+    //I don't know what this does
+    this.focusTextInput = this.focusTextInput.bind(this);
+    //Initialize states to do Math on
     this.state = {
       originalBrix: 0.0,
       OG: 1.000,
@@ -124,6 +133,14 @@ class FermentingScreen extends React.Component {
       ABV: 0.0,
       AA: 0.0
     };
+  }
+
+  //Focus text input function, needs Timeout delay for Tab Navigator quirks
+  focusTextInput() {
+    setTimeout(
+      this.textInput.focus,
+      100
+    );
   }
 
   //Calculate Brix to SG and save the value into the state
@@ -191,7 +208,14 @@ class FermentingScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.scrollViewContainer}>
+      //Wrap everything under the Tab Navigator in a ScrollView
+      <ScrollView
+        style={styles.scrollViewContainer}
+      >
+      {/*Subscribe to Navigation Event onDidFocus, change focus to the Original Brix Input using the ref when this tab is focused*/}
+      <NavigationEvents
+        onDidFocus={this.focusTextInput}
+      />
         <View style={styles.body}>
           <View style={styles.dataTableContainer}>
             <View style={styles.fermentingBodyLeft}>
@@ -229,7 +253,7 @@ class FermentingScreen extends React.Component {
             <View style={styles.fermentingBodyRight}>
               <TextInput
                   style={styles.input}
-                  ref={(input) => { this.originalBrixInput = input; }}
+                  ref={input => this.textInput = input}
                   underlineColorAndroid="transparent"
                   placeholder="0.0"
                   keyboardType="numeric"
@@ -394,6 +418,10 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
     textAlign: 'left'
   },
+  mediumItalic: {
+    fontSize: 16,
+    fontFamily: 'Montserrat-BoldItalic'
+  },
   small: {
     color: 'black',
     fontFamily: 'Montserrat-SemiBold',
@@ -465,19 +493,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Medium',
     textAlign: 'left',
     fontSize: 10,
-  },
-  footerTextBoldH1: {
-    color: 'black',
-    textAlign: 'left',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  footerTextBoldH2: {
-    color: 'black',
-    textAlign: 'left',
-    fontSize: 14,
-    fontWeight: 'bold',
-    fontStyle: 'italic'
   },
   footerTextVikingH2: {
     color: 'black',
