@@ -7,6 +7,7 @@ import {
   TextInput,
   Linking,
   TouchableOpacity,
+  Image
 } from 'react-native';
 //Import modules for navigation
 import {
@@ -16,6 +17,31 @@ import {
 } from 'react-navigation';
 //Import Material Design Icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+let version = 'v0.0.1';
+
+class Baldr extends React.Component {
+  render() {
+    return (
+      <View style={styles.baldrContainer}>
+        <Text style={styles.Viking}>Who is Baldr?</Text>
+        <Text style={styles.smallCenter}>In Norse mythology Baldr is the God of Light</Text>
+        <TouchableOpacity onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>
+        <Image
+          style={{width: 265, height: 371, alignSelf: 'center', margin: 4}}
+          source={require('./assets/Baldr.jpg')}
+         />
+         </TouchableOpacity>
+        <Text
+          style={styles.url}
+          onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}
+        >
+        http://mythology.wikia.com/wiki/Baldr
+        </Text>
+      </View>
+    )
+  }
+};
 
 class UnfermentedScreen extends React.Component {
   
@@ -50,9 +76,7 @@ class UnfermentedScreen extends React.Component {
   render() {
     return (
       //Wrap everything under the Tab Navigator in a ScrollView
-      <ScrollView
-        style={styles.scrollViewContainer}
-      >
+      <ScrollView style={styles.scrollViewContainer}>
       {/*Subscribe to Navigation Event onDidFocus, change focus to the Brix Input using the ref when this tab is focused*/}
       <NavigationEvents
         onDidFocus={this.focusTextInput}
@@ -86,10 +110,6 @@ class UnfermentedScreen extends React.Component {
                 {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
                 {'\n'}{'\n'}<Text style={styles.mediumItalic}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
                 This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
-
-                {'\n'}{'\n'}<Text style={styles.footerTextVikingH2}>Who is Baldr?</Text>
-                {'\n'}In Norse mythology Baldr is the God of Light
-                {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
               </Text>
             </View>
 
@@ -106,7 +126,10 @@ class UnfermentedScreen extends React.Component {
               </View>
             </View>
           </View>
-        </View>
+          {/*Baldr View*/}
+          <Baldr />
+          <Text style={styles.version}>{version}</Text>
+        </View> 
       </ScrollView>
     );
   }
@@ -209,9 +232,7 @@ class FermentingScreen extends React.Component {
   render() {
     return (
       //Wrap everything under the Tab Navigator in a ScrollView
-      <ScrollView
-        style={styles.scrollViewContainer}
-      >
+      <ScrollView style={styles.scrollViewContainer}>
       {/*Subscribe to Navigation Event onDidFocus, change focus to the Original Brix Input using the ref when this tab is focused*/}
       <NavigationEvents
         onDidFocus={this.focusTextInput}
@@ -223,13 +244,13 @@ class FermentingScreen extends React.Component {
                 Original Brix:
               </Text>
               <Text style={styles.medium}>
-                OG:
+                Original Gravity:
               </Text>
               <Text style={styles.large}>
                 Current Brix:
               </Text>
               <Text style={styles.medium}>
-                FG:
+                Final Gravity:
               </Text>
               <Text style={styles.bigABV}>
                 ABV:
@@ -310,12 +331,8 @@ class FermentingScreen extends React.Component {
                 {'\n'}RE = 0.8114 * AE + 0.1886 * OE
                 {'\n'}ABW = (OE - RE) / (2.0665 - 0.010665 * OE)
 
-                {'\n'}{'\n'}<Text style={styles.medium}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
+                {'\n'}{'\n'}<Text style={styles.mediumItalic}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
                 This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
-                  
-                {'\n'}{'\n'}<Text style={styles.footerTextVikingH2}>Who is Baldr?</Text>
-                {'\n'}In Norse mythology Baldr is the God of Light
-                {'\n'}<Text style={styles.url} onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>http://mythology.wikia.com/wiki/Baldr</Text>
               </Text>
             </View>
             <View style={styles.footerViewRight}>
@@ -331,6 +348,9 @@ class FermentingScreen extends React.Component {
               </View>
             </View>
           </View>
+          {/*Baldr View*/}
+          <Baldr />
+          <Text style={styles.version}>{version}</Text>
         </View>
       </ScrollView>
     );
@@ -390,6 +410,15 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 16,
   },
+  baldrContainer: {
+    backgroundColor: '#F8F8F9',
+    borderRadius: 4,
+    elevation: 2,
+    //flexDirection: 'row',
+    //justifyContent: 'space-between',
+    padding: 16,
+    marginTop: 16,
+  },
   unfermentedBodyLeft: {
     //backgroundColor: 'lightblue',
     //paddingRight: 24
@@ -421,7 +450,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   mediumItalic: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'Montserrat-BoldItalic'
   },
   small: {
@@ -429,6 +458,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-SemiBold',
     paddingTop: 2,
     paddingBottom: 2
+  },
+  smallCenter: {
+    color: 'black',
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 12,
+    textAlign: 'center'
   },
   bigABV: {
     color: 'black',
@@ -478,9 +513,11 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   url: {
+    color: 'black',
     fontFamily: 'Viking',
     textDecorationLine: 'underline',
-    fontSize: 8,
+    fontSize: 10,
+    textAlign: 'center'
   },
   footerViewLeft: {
     //backgroundColor: 'yellow',
@@ -496,10 +533,15 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 10,
   },
-  footerTextVikingH2: {
+  Viking: {
     color: 'black',
-    textAlign: 'left',
-    fontSize: 14,
+    textAlign: 'center',
+    fontSize: 16,
     fontFamily: 'Viking'
   },
+  version: {
+    textAlign: 'center',
+    fontSize: 10,
+    padding: 16
+  }
 });
