@@ -1,3 +1,5 @@
+//TODO: Delete colons after left column items? Look at Mint app
+
 import React from 'react';
 import {
   StyleSheet,
@@ -41,7 +43,7 @@ class Baldr extends React.Component {
       </View>
     )
   }
-};
+}
 
 class UnfermentedScreen extends React.Component {
   
