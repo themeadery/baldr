@@ -116,12 +116,12 @@ class UnfermentedScreen extends React.Component {
             </View>
 
             <View style={styles.footerViewRight}>
-              <View style={{paddingTop: 14}}>
+              <View style={styles.unfermentedInfoButtonTop}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
               </View>
-              <View style={{paddingTop: 18}}>
+              <View style={styles.unfermentedInfoButtonBottom}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
@@ -338,12 +338,12 @@ class FermentingScreen extends React.Component {
               </Text>
             </View>
             <View style={styles.footerViewRight}>
-              <View style={{paddingTop: 52}}>
+              <View style={styles.fermentingInfoButtonTop}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
               </View>
-              <View style={{paddingTop: 68}}>
+              <View style={styles.fermentingInfoButtonBottom}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
                   <MaterialIcons name="info" size={24}/>
                 </TouchableOpacity>
@@ -369,7 +369,7 @@ const TabNavigator = createMaterialTopTabNavigator({
     inactiveTintColor: 'grey',
     style: {
       backgroundColor: '#fff9c4',
-      paddingTop: 12,
+      paddingTop: 14,
     },
     indicatorStyle: {
       backgroundColor: 'black',
@@ -392,7 +392,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E1E2E1',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    padding: 16,
+    padding: 12,
     flex: 1
   },
   dataTableContainer: {
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 16,
+    padding: 12
   },
   footerContainer: {
     backgroundColor: '#F8F8F9',
@@ -409,8 +409,8 @@ const styles = StyleSheet.create({
     elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 16,
-    marginTop: 16,
+    padding: 12,
+    marginTop: 12
   },
   baldrContainer: {
     backgroundColor: '#F8F8F9',
@@ -418,8 +418,8 @@ const styles = StyleSheet.create({
     elevation: 2,
     //flexDirection: 'row',
     //justifyContent: 'space-between',
-    padding: 16,
-    marginTop: 16,
+    padding: 12,
+    marginTop: 12
   },
   unfermentedBodyLeft: {
     //backgroundColor: 'lightblue',
@@ -523,17 +523,37 @@ const styles = StyleSheet.create({
   },
   footerViewLeft: {
     //backgroundColor: 'yellow',
-    width: 325,
+    flex: 1
   },
   footerViewRight: {
     //backgroundColor: 'green',
     paddingLeft: 2
   },
+  unfermentedInfoButtonTop: {
+    //backgroundColor: 'yellow',
+    justifyContent: 'center',
+    flex: 2
+  },
+  unfermentedInfoButtonBottom: {
+    //backgroundColor: 'green',
+    justifyContent: 'center',
+    flex: 1
+  },
+  fermentingInfoButtonTop: {
+    //backgroundColor: 'yellow',
+    justifyContent: 'center',
+    flex: 4
+  },
+  fermentingInfoButtonBottom: {
+    //backgroundColor: 'green',
+    justifyContent: 'center',
+    flex: 1
+  },
   footerText: {
     color: 'black',
     fontFamily: 'Montserrat-Medium',
     textAlign: 'left',
-    fontSize: 10,
+    fontSize: 10
   },
   Viking: {
     color: 'black',
