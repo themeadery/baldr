@@ -9,7 +9,8 @@ import {
   TextInput,
   Linking,
   TouchableOpacity,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 //Import modules for navigation
 import {
@@ -369,7 +370,14 @@ const TabNavigator = createMaterialTopTabNavigator({
     inactiveTintColor: 'grey',
     style: {
       backgroundColor: '#fff9c4',
-      paddingTop: 14,
+      ...Platform.select({
+        ios: {
+          paddingTop: 18,
+        },
+        android: {
+          paddingTop: 8,
+        },
+      }),
     },
     indicatorStyle: {
       backgroundColor: 'black',
