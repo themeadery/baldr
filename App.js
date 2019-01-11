@@ -95,8 +95,10 @@ class UnfermentedScreen extends React.Component {
                   style={styles.input}
                   ref={input => this.textInput = input}
                   underlineColorAndroid="transparent"
+                  clearButtonMode="while-editing"
                   placeholder="0.0"
                   keyboardType="numeric"
+                  returnKeyType="done"
                   maxLength={5}
                   onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); }}
               />           
@@ -279,8 +281,10 @@ class FermentingScreen extends React.Component {
                   style={styles.input}
                   ref={input => this.textInput = input}
                   underlineColorAndroid="transparent"
+                  clearButtonMode="while-editing"
                   placeholder="0.0"
                   keyboardType="numeric"
+                  returnKeyType="done"
                   maxLength={5}
                   onChangeText={(originalBrix) => { this.setState({ originalBrix }); this.doMathOG(); this.doRemainingMath(); }}
                   onSubmitEditing={() => { this.secondTextInput.focus(); }}
@@ -293,8 +297,10 @@ class FermentingScreen extends React.Component {
                   style={styles.input}
                   ref={input => this.secondTextInput = input}
                   underlineColorAndroid="transparent"
+                  clearButtonMode="while-editing"
                   placeholder="0.0"
                   keyboardType="numeric"
+                  returnKeyType="done"
                   maxLength={5}
                   onChangeText={(currentBrix) => { this.setState({ currentBrix }); this.doMathFG(); this.doRemainingMath(); }}
                 />
@@ -372,7 +378,7 @@ const TabNavigator = createMaterialTopTabNavigator({
       backgroundColor: '#fff9c4',
       ...Platform.select({
         ios: {
-          paddingTop: 18,
+          paddingTop: 22,
         },
         android: {
           paddingTop: 8,
