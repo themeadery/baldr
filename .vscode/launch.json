@@ -14,7 +14,27 @@
             "outDir": "${workspaceRoot}/.vscode/.react"
         },
         {
-            "name": "Debug iOS iPhone 8",
+            "name": "Debug iPhone 5S",
+            "program": "${workspaceRoot}/.vscode/launchReactNative.js",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "ios",
+            "target": "iPhone 5s",
+            "sourceMaps": true,
+            "outDir": "${workspaceRoot}/.vscode/.react"
+        },
+        {
+            "name": "Debug iPhone 6S",
+            "program": "${workspaceRoot}/.vscode/launchReactNative.js",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "ios",
+            "target": "iPhone 6s",
+            "sourceMaps": true,
+            "outDir": "${workspaceRoot}/.vscode/.react"
+        },
+        {
+            "name": "Debug iPhone 8",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
             "type": "reactnative",
             "request": "launch",
@@ -24,7 +44,7 @@
             "outDir": "${workspaceRoot}/.vscode/.react"
         },
         {
-            "name": "Debug iOS iPhone XS",
+            "name": "Debug iPhone XS",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
             "type": "reactnative",
             "request": "launch",
