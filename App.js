@@ -1,5 +1,3 @@
-//TODO: Delete colons after left column items? Look at Mint app
-
 import React from 'react';
 import {
   StyleSheet,
@@ -87,8 +85,8 @@ class UnfermentedScreen extends React.Component {
         <View style={styles.body}>
           <View style={styles.dataTableContainer}>
             <View style={styles.unfermentedBodyLeft}>
-              <Text style={styles.large}>Brix:</Text>
-              <Text style={styles.large}>Specific Gravity:</Text>
+              <Text style={styles.large}>Brix</Text>
+              <Text style={styles.large}>Specific Gravity</Text>
             </View>
             <View style={styles.unfermentedBodyRight}>
               <TextInput
@@ -110,9 +108,9 @@ class UnfermentedScreen extends React.Component {
           </View>
           <View style={styles.footerContainer}>
             <View style={styles.footerViewLeft}>
-              <Text style={styles.footerText}>
-                <Text style={styles.medium}>Equation:</Text>
-                {'\n'}SG = ((Brix / WCF) / (258.6-(((Brix / WCF) / 258.2)*227.1))) + 1
+              <Text style={styles.condensed}>
+                <Text style={styles.medium}>Equation</Text>
+                {'\n'}SG = ((Brix/WCF) / (258.6-(((Brix/WCF) / 258.2)*227.1))) + 1
                 {'\n'}{'\n'}<Text style={styles.mediumItalic}>Note: </Text>A Wort Correction Factor (WCF) of 1.040 has been applied.
                 This means that this calculator is specifically tuned for beer, not wine, mead or other fermentables
               </Text>
@@ -246,34 +244,34 @@ class FermentingScreen extends React.Component {
           <View style={styles.dataTableContainer}>
             <View style={styles.fermentingBodyLeft}>
               <Text style={styles.large}>
-                Original Brix:
+                Original Brix
               </Text>
               <Text style={styles.medium}>
-                Original Gravity:
+                Original Gravity
               </Text>
               <Text style={styles.large}>
-                Current Brix:
+                Current Brix
               </Text>
               <Text style={styles.medium}>
-                Final Gravity:
+                Final Gravity
               </Text>
               <Text style={styles.bigABV}>
-                ABV:
+                ABV
               </Text>
               <Text style={styles.small}>
-                Apparent Attenuation:
+                Apparent Attenuation
               </Text>
               <Text style={styles.small}>
-                Original Extract:
+                Original Extract
               </Text>
               <Text style={styles.small}>
-                Apparent Extract:
+                Apparent Extract
               </Text>
               <Text style={styles.small}>
-                Real Extract:
+                Real Extract
               </Text>
               <Text style={styles.small}>
-                ABW:
+                ABW
               </Text>
             </View>
             <View style={styles.fermentingBodyRight}>
@@ -329,9 +327,9 @@ class FermentingScreen extends React.Component {
           </View>
           <View style={styles.footerContainer}>
             <View style={styles.footerViewLeft}>
-              <Text style={styles.footerText}>
-                <Text style={styles.medium}>Equations:</Text>
-                {'\n'}OG = ((OB / WCF) / (258.6-(((OB / WCF) / 258.2)*227.1))) + 1
+              <Text style={styles.condensed}>
+                <Text style={styles.medium}>Equations</Text>
+                {'\n'}OG = ((OB/WCF) / (258.6-(((OB/WCF) / 258.2)*227.1))) + 1
                 {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
                 {'\n'}ABV = ABW * (FG/0.794)
                 {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
@@ -398,6 +396,7 @@ const TabNavigator = createMaterialTopTabNavigator({
 export default createAppContainer(TabNavigator);
 
 const styles = StyleSheet.create({
+  // Views
   scrollViewContainer: {
     flex: 1,
     backgroundColor: '#E1E2E1'
@@ -436,19 +435,38 @@ const styles = StyleSheet.create({
     marginTop: 12
   },
   unfermentedBodyLeft: {
-    //backgroundColor: 'lightblue',
     //paddingRight: 24
   },
   unfermentedBodyRight: {
-    //backgroundColor: 'skyblue'
   },
   fermentingBodyLeft: {
-    //backgroundColor: 'lightblue',
     //paddingRight: 58
   },
   fermentingBodyRight: {
-    //backgroundColor: 'skyblue',
   },
+  footerViewLeft: {
+    flex: 1
+  },
+  footerViewRight: {
+    paddingLeft: 2
+  },
+  unfermentedInfoButtonTop: {
+    justifyContent: 'center',
+    flex: 1
+  },
+  unfermentedInfoButtonBottom: {
+    justifyContent: 'center',
+    flex: 1
+  },
+  fermentingInfoButtonTop: {
+    justifyContent: 'center',
+    flex: 4
+  },
+  fermentingInfoButtonBottom: {
+    justifyContent: 'center',
+    flex: 1
+  },
+  // Fonts
   large: {
     color: 'black',
     fontSize: 24,
@@ -466,6 +484,7 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   mediumItalic: {
+    color: 'black',
     fontSize: 14,
     fontFamily: 'Montserrat-BoldItalic'
   },
@@ -481,11 +500,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center'
   },
+  condensed: {
+    color: 'black',
+    fontFamily: 'RobotoCondensed-Light',
+    fontSize: 12
+  },
   bigABV: {
     color: 'black',
     fontSize: 32,
     fontFamily: 'Montserrat-Bold',
-    //paddingTop: 2,
     paddingBottom: 6,
     textAlign: 'left'
   },
@@ -512,14 +535,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     paddingTop: 2,
-    //paddingBottom: 2
   },
   calculatedABV: {
     color: 'green',
     fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
-    //paddingTop: 2,
     paddingBottom: 2
   },
   calculatedSmall: {
@@ -534,40 +555,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: 10,
     textAlign: 'center'
-  },
-  footerViewLeft: {
-    //backgroundColor: 'yellow',
-    flex: 1
-  },
-  footerViewRight: {
-    //backgroundColor: 'green',
-    paddingLeft: 2
-  },
-  unfermentedInfoButtonTop: {
-    //backgroundColor: 'yellow',
-    justifyContent: 'center',
-    flex: 2
-  },
-  unfermentedInfoButtonBottom: {
-    //backgroundColor: 'green',
-    justifyContent: 'center',
-    flex: 1
-  },
-  fermentingInfoButtonTop: {
-    //backgroundColor: 'yellow',
-    justifyContent: 'center',
-    flex: 4
-  },
-  fermentingInfoButtonBottom: {
-    //backgroundColor: 'green',
-    justifyContent: 'center',
-    flex: 1
-  },
-  footerText: {
-    color: 'black',
-    fontFamily: 'Montserrat-Medium',
-    textAlign: 'left',
-    fontSize: 10
   },
   Viking: {
     color: 'black',
