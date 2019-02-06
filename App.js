@@ -8,14 +8,14 @@ import {
   Linking,
   TouchableOpacity,
   Image,
-  Platform
+  //Platform
 } from 'react-native';
 //Import modules for navigation
 import {
-  createBottomTabNavigator,
   createAppContainer,
   NavigationEvents
 } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 //Import Material Design Icons
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -366,23 +366,27 @@ class AboutScreen extends React.Component {
   }
 }
 
+//Figure out which icon to display based on the label (routeName)
 const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
-  let IconComponent = Icon;
+  let IconComponent = Icon; //The generic name 'Icon' is the imported MaterialIcons
   let iconName;
   if (routeName === 'UNFERMENTED') {
-    iconName = `pause-circle${focused ? '-filled' : '-outline'}`;
+    iconName = `pause-circle${focused ? '-filled' : '-outline'}`; //Template Literal -> Expression changes the icon name based on if the screen is focused or not
   } else if (routeName === 'FERMENTING') {
-    iconName = 'bubble-chart';
+    iconName = 'bubble-chart'; //There is no -outline variant, so omit backtick Template Literal Expression to check if the screen is focused or not
   } else if (routeName === 'ABOUT') {
     iconName = `info${focused ? '' : '-outline'}`;
   }
-
+  //Render the result of all the above
   return <IconComponent name={iconName} size={24} color={tintColor} />;
 };
 
+//ROOT COMPONENT
+//Wrap the Material Bottom Tab Navigator in createAppContainer
+// and pass params to it so that it is styled properly
 export default createAppContainer(
-  createBottomTabNavigator(
+  createMaterialBottomTabNavigator(
     {
       UNFERMENTED: { screen: UnfermentedScreen },
       FERMENTING: { screen: FermentingScreen },
@@ -393,17 +397,16 @@ export default createAppContainer(
         tabBarIcon: ({ focused, tintColor }) =>
           getTabBarIcon(navigation, focused, tintColor),
       }),
-      tabBarOptions: {
-        activeTintColor: 'black',
-        inactiveTintColor: 'grey',
-        style: {
-          backgroundColor: '#fff9c4',
-        },
-        labelStyle: {
-          fontFamily: 'Montserrat-Bold',
-          fontSize: 12
-        },
-      }
+      activeColor: 'black',
+      inactiveColor: 'grey',
+      keyboardHidesNavigationBar: false,
+      barStyle: { 
+        backgroundColor: '#fff9c4',
+        paddingVertical: 1
+      },
+      theme: {
+        fonts: { regular: 'Montserrat-Bold' },
+      },
     }
   )
 );
