@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 //Import modules for navigation
 import {
-  createMaterialTopTabNavigator,
+  createBottomTabNavigator,
   createAppContainer,
   NavigationEvents
 } from 'react-navigation';
@@ -366,37 +366,47 @@ class AboutScreen extends React.Component {
   }
 }
 
-const TabNavigator = createMaterialTopTabNavigator({
-  UNFERMENTED: UnfermentedScreen,
-  FERMENTING: FermentingScreen,
-  ABOUT: AboutScreen,
-},
-{
-  tabBarOptions: {
-    activeTintColor: 'black',
-    inactiveTintColor: 'grey',
-    style: {
-      backgroundColor: '#fff9c4',
-      ...Platform.select({
-        ios: {
-          paddingTop: 22,
-        },
-        android: {
-          paddingTop: 8,
-        },
-      }),
-    },
-    indicatorStyle: {
-      backgroundColor: 'black',
-    },
-    labelStyle: {
-      fontFamily: 'Montserrat-Bold',
-      fontSize: 14
-    },
-  },
-});
+const getTabBarIcon = (navigation, focused, tintColor) => {
+  const { routeName } = navigation.state;
+  let IconComponent = Icon;
+  let iconName;
+  if (routeName === 'UNFERMENTED') {
+    iconName = `pause-circle${focused ? '-filled' : '-outline'}`;
+  } else if (routeName === 'FERMENTING') {
+    iconName = 'bubble-chart';
+  } else if (routeName === 'ABOUT') {
+    iconName = `info${focused ? '' : '-outline'}`;
+  }
 
-export default createAppContainer(TabNavigator);
+  return <IconComponent name={iconName} size={24} color={tintColor} />;
+};
+
+export default createAppContainer(
+  createBottomTabNavigator(
+    {
+      UNFERMENTED: { screen: UnfermentedScreen },
+      FERMENTING: { screen: FermentingScreen },
+      ABOUT: { screen: AboutScreen },
+    },
+    {
+      defaultNavigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, tintColor }) =>
+          getTabBarIcon(navigation, focused, tintColor),
+      }),
+      tabBarOptions: {
+        activeTintColor: 'black',
+        inactiveTintColor: 'grey',
+        style: {
+          backgroundColor: '#fff9c4',
+        },
+        labelStyle: {
+          fontFamily: 'Montserrat-Bold',
+          fontSize: 12
+        },
+      }
+    }
+  )
+);
 
 const styles = StyleSheet.create({
   // Views
