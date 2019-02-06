@@ -24,7 +24,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const infoIcon = (<Icon name="info-outline" size={24} />)
 
-let version = 'v0.0.1';
+let version = 'v0.2.0';
 
 class UnfermentedScreen extends React.Component {
   
@@ -369,6 +369,7 @@ class AboutScreen extends React.Component {
             http://mythology.wikia.com/wiki/Baldr
             </Text>
           </View>
+          <Text style={styles.version}>{version}</Text>
         </View>
       </ScrollView>
     )
