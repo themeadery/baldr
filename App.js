@@ -23,29 +23,6 @@ const infoIcon = (<Icon name="info-outline" size={24} />)
 
 let version = 'v0.0.1';
 
-class Baldr extends React.Component {
-  render() {
-    return (
-      <View style={styles.baldrContainer}>
-        <Text style={styles.Viking}>Who is Baldr?</Text>
-        <Text style={styles.smallCenter}>In Norse mythology Baldr is the God of Light</Text>
-        <TouchableOpacity onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>
-        <Image
-          style={{width: 265, height: 371, alignSelf: 'center', margin: 4}}
-          source={require('./assets/Baldr.jpg')}
-         />
-         </TouchableOpacity>
-        <Text
-          style={styles.url}
-          onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}
-        >
-        http://mythology.wikia.com/wiki/Baldr
-        </Text>
-      </View>
-    )
-  }
-}
-
 class UnfermentedScreen extends React.Component {
   
   constructor(props) {
@@ -131,8 +108,6 @@ class UnfermentedScreen extends React.Component {
               </View>
             </View>
           </View>
-          {/*Baldr View*/}
-          <Baldr/>
           <Text style={styles.version}>{version}</Text>
         </View> 
       </ScrollView>
@@ -357,8 +332,6 @@ class FermentingScreen extends React.Component {
               </View>
             </View>
           </View>
-          {/*Baldr View*/}
-          <Baldr />
           <Text style={styles.version}>{version}</Text>
         </View>
       </ScrollView>
@@ -366,9 +339,37 @@ class FermentingScreen extends React.Component {
   }
 }
 
+class AboutScreen extends React.Component {
+  render() {
+    return (
+      <ScrollView style={styles.scrollViewContainer}>
+        <View style={styles.body}>
+          <View style={styles.baldrContainer}>
+            <Text style={styles.Viking}>Who is Baldr?</Text>
+            <Text style={styles.smallCenter}>In Norse mythology Baldr is the God of Light</Text>
+            <TouchableOpacity onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>
+            <Image
+              style={{width: 265, height: 371, alignSelf: 'center', margin: 4}}
+              source={require('./assets/Baldr.jpg')}
+            />
+            </TouchableOpacity>
+            <Text
+              style={styles.url}
+              onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}
+            >
+            http://mythology.wikia.com/wiki/Baldr
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    )
+  }
+}
+
 const TabNavigator = createMaterialTopTabNavigator({
   UNFERMENTED: UnfermentedScreen,
   FERMENTING: FermentingScreen,
+  ABOUT: AboutScreen,
 },
 {
   tabBarOptions: {
@@ -434,7 +435,7 @@ const styles = StyleSheet.create({
     //flexDirection: 'row',
     //justifyContent: 'space-between',
     padding: 12,
-    marginTop: 12
+    //marginTop: 12
   },
   unfermentedBodyLeft: {
     //paddingRight: 24
