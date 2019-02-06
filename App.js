@@ -8,12 +8,15 @@ import {
   Linking,
   TouchableOpacity,
   Image,
+  StatusBar,
   //Platform
 } from 'react-native';
 //Import modules for navigation
 import {
   createAppContainer,
-  NavigationEvents
+  createStackNavigator,
+  NavigationEvents,
+  //SafeAreaView
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 //Import Material Design Icons
@@ -55,8 +58,13 @@ class UnfermentedScreen extends React.Component {
 
   render() {
     return (
-      //Wrap everything under the Tab Navigator in a ScrollView
+      //Wrap everything above the Tab Navigator in a ScrollView
       <ScrollView style={styles.scrollViewContainer}>
+      {/*Change the Status Bar on Android to a custom color*/}
+      <StatusBar
+          barStyle="dark-content"
+          backgroundColor="#cbc693"
+      />
       {/*Subscribe to Navigation Event onDidFocus, change focus to the Brix Input using the ref when this tab is focused*/}
       <NavigationEvents
         onDidFocus={this.focusTextInput}
@@ -211,7 +219,7 @@ class FermentingScreen extends React.Component {
 
   render() {
     return (
-      //Wrap everything under the Tab Navigator in a ScrollView
+      //Wrap everything above the Tab Navigator in a ScrollView
       <ScrollView style={styles.scrollViewContainer}>
       {/*Subscribe to Navigation Event onDidFocus, change focus to the Original Brix Input using the ref when this tab is focused*/}
       <NavigationEvents
@@ -342,6 +350,7 @@ class FermentingScreen extends React.Component {
 class AboutScreen extends React.Component {
   render() {
     return (
+      //Wrap everything above the Tab Navigator in a ScrollView
       <ScrollView style={styles.scrollViewContainer}>
         <View style={styles.body}>
           <View style={styles.baldrContainer}>
@@ -371,11 +380,11 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
   let IconComponent = Icon; //The generic name 'Icon' is the imported MaterialIcons
   let iconName;
-  if (routeName === 'UNFERMENTED') {
+  if (routeName === 'Unfermented') {
     iconName = `pause-circle${focused ? '-filled' : '-outline'}`; //Template Literal -> Expression changes the icon name based on if the screen is focused or not
-  } else if (routeName === 'FERMENTING') {
+  } else if (routeName === 'Fermenting') {
     iconName = 'bubble-chart'; //There is no -outline variant, so omit backtick Template Literal Expression to check if the screen is focused or not
-  } else if (routeName === 'ABOUT') {
+  } else if (routeName === 'About') {
     iconName = `info${focused ? '' : '-outline'}`;
   }
   //Render the result of all the above
@@ -385,12 +394,52 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 //ROOT COMPONENT
 //Wrap the Material Bottom Tab Navigator in createAppContainer
 // and pass params to it so that it is styled properly
+//Then wrap each tab in a Stack Navigator to get header capabilities
 export default createAppContainer(
   createMaterialBottomTabNavigator(
     {
-      UNFERMENTED: { screen: UnfermentedScreen },
-      FERMENTING: { screen: FermentingScreen },
-      ABOUT: { screen: AboutScreen },
+      Unfermented: createStackNavigator({
+        Unfermented: {
+          screen: UnfermentedScreen,
+          navigationOptions: {
+            headerTitle: "Unfermented Wort",
+            headerStyle: {
+              backgroundColor: '#fff9c4',
+            },
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            },
+          }
+        }
+      }),
+      Fermenting: createStackNavigator({
+        Fermenting: {
+          screen: FermentingScreen,
+          navigationOptions: {
+            headerTitle: "Fermenting Wort",
+            headerStyle: {
+              backgroundColor: '#fff9c4',
+            },
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            },
+          }
+        }
+      }),
+      About: createStackNavigator({
+        About: {
+          screen: AboutScreen,
+          navigationOptions: {
+            headerTitle: "About Baldr",
+            headerStyle: {
+              backgroundColor: '#fff9c4',
+            },
+            headerTitleStyle: {
+              fontFamily: 'Montserrat-Bold',
+            },
+          }
+        }
+      })
     },
     {
       defaultNavigationOptions: ({ navigation }) => ({
