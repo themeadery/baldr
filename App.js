@@ -17,7 +17,9 @@ import {
   NavigationEvents
 } from 'react-navigation';
 //Import Material Design Icons
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const infoIcon = (<Icon name="info-outline" size={24} />)
 
 let version = 'v0.0.1';
 
@@ -119,18 +121,18 @@ class UnfermentedScreen extends React.Component {
             <View style={styles.footerViewRight}>
               <View style={styles.unfermentedInfoButtonTop}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                  <MaterialIcons name="info" size={24}/>
+                  {infoIcon}
                 </TouchableOpacity>
               </View>
               <View style={styles.unfermentedInfoButtonBottom}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                  <MaterialIcons name="info" size={24}/>
+                  {infoIcon}
                 </TouchableOpacity>
               </View>
             </View>
           </View>
           {/*Baldr View*/}
-          <Baldr />
+          <Baldr/>
           <Text style={styles.version}>{version}</Text>
         </View> 
       </ScrollView>
@@ -345,12 +347,12 @@ class FermentingScreen extends React.Component {
             <View style={styles.footerViewRight}>
               <View style={styles.fermentingInfoButtonTop}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                  <MaterialIcons name="info" size={24}/>
+                  {infoIcon}
                 </TouchableOpacity>
               </View>
               <View style={styles.fermentingInfoButtonBottom}>
                 <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
-                  <MaterialIcons name="info" size={24}/>
+                  {infoIcon}
                 </TouchableOpacity>
               </View>
             </View>
