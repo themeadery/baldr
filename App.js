@@ -9,14 +9,12 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
-  //Platform
 } from 'react-native';
 //Import modules for navigation
 import {
   createAppContainer,
   createStackNavigator,
   NavigationEvents,
-  //SafeAreaView
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 //Import Material Design Icons
@@ -355,7 +353,10 @@ class AboutScreen extends React.Component {
         <View style={styles.body}>
           <View style={styles.baldrContainer}>
             <Text style={styles.Viking}>Who is Baldr?</Text>
-            <Text style={styles.smallCenter}>In Norse mythology Baldr is the God of Light</Text>
+            <Text style={styles.smallCenter}>
+              In Norse mythology Baldr is the God of Light.
+              {'\n'}He is the shining light entering your refractometer!
+            </Text>
             <TouchableOpacity onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}>
             <Image
               style={{width: 265, height: 371, alignSelf: 'center', margin: 4}}
@@ -367,6 +368,18 @@ class AboutScreen extends React.Component {
               onPress={() => Linking.openURL('http://mythology.wikia.com/wiki/Baldr')}
             >
             http://mythology.wikia.com/wiki/Baldr
+            </Text>
+          </View>
+          <View style={styles.genericContainer}>
+            <Text style={styles.medium}>Acknowledgements</Text>
+            <Text style={styles.regular}>
+              {'\t'}"react": "^16.6.3",{'\n'}
+              {'\t'}"react-native": "^0.57.8",{'\n'}
+              {'\t'}"react-native-gesture-handler": "^1.0.12",{'\n'}
+              {'\t'}"react-native-paper": "^2.10.1",{'\n'}
+              {'\t'}"react-native-vector-icons": "^6.1.0",{'\n'}
+              {'\t'}"react-navigation": "^3.0.9",{'\n'}
+              {'\t'}"react-navigation-material-bottom-tabs": "^1.0.0"
             </Text>
           </View>
           <Text style={styles.version}>{version}</Text>
@@ -442,6 +455,7 @@ export default createAppContainer(
         }
       })
     },
+    //params to style tab bar
     {
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) =>
@@ -495,18 +509,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F9',
     borderRadius: 4,
     elevation: 2,
-    //flexDirection: 'row',
-    //justifyContent: 'space-between',
     padding: 12,
-    //marginTop: 12
+  },
+  genericContainer: {
+    backgroundColor: '#F8F8F9',
+    borderRadius: 4,
+    elevation: 2,
+    padding: 12,
+    marginTop: 12
   },
   unfermentedBodyLeft: {
-    //paddingRight: 24
   },
   unfermentedBodyRight: {
   },
   fermentingBodyLeft: {
-    //paddingRight: 58
   },
   fermentingBodyRight: {
   },
@@ -570,6 +586,9 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'RobotoCondensed-Light',
     fontSize: 12
+  },
+  regular: {
+    color: 'black'
   },
   bigABV: {
     color: 'black',
