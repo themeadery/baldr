@@ -12,11 +12,13 @@ Refractometers are designed to measure a pure sucrose solution and report the re
 While the Wort Correction Factor is specific to your particular refractometer, data from around the world suggests 1.040 to be a good compromise.
 
 **Sources:**
-[Refractometer Estimates of Final Gravity](http://seanterrill.com/2010/06/11/refractometer-estimates-of-final-gravity/)
-[How to Determine your Refractometer’s Wort Correction Factor](https://www.brewersfriend.com/how-to-determine-your-refractometers-wort-correction-factor/)
-[Don’t trust your refractometer blindly](http://braukaiser.com/blog/blog/2012/03/23/dont-trust-your-refractometer-blindly/)
+- [Refractometer Estimates of Final Gravity](http://seanterrill.com/2010/06/11/refractometer-estimates-of-final-gravity/)
+- [How to Determine your Refractometer’s Wort Correction Factor](https://www.brewersfriend.com/how-to-determine-your-refractometers-wort-correction-factor/)
+- [Don’t trust your refractometer blindly](http://braukaiser.com/blog/blog/2012/03/23/dont-trust-your-refractometer-blindly/)
 
 ##### -Matt Mead
+
+* * *
 
 # Equation Research
 ##### January 13th, 2019
@@ -26,17 +28,19 @@ Using common examples of brewing software revealed that not everybody is using t
 Through much testing Sean has been able to develop a cubic equation for Final Gravity calculation that is what I consider to be the most accurate available. This guy has a [BS in Nuclear Engineering](http://seanterrill.com/bio-and-resume/) afterall.
 
 **The order of progression:**
-[Refractometer Estimates of Final Gravity](http://seanterrill.com/2010/06/11/refractometer-estimates-of-final-gravity/)
-[Toward a Better Refractometer Correlation](http://seanterrill.com/2010/07/20/toward-a-better-refractometer-correlation/)
-[Refractometer FG Results](http://seanterrill.com/2011/04/07/refractometer-fg-results/)
+- [Refractometer Estimates of Final Gravity](http://seanterrill.com/2010/06/11/refractometer-estimates-of-final-gravity/)
+- [Toward a Better Refractometer Correlation](http://seanterrill.com/2010/07/20/toward-a-better-refractometer-correlation/)
+- [Refractometer FG Results](http://seanterrill.com/2011/04/07/refractometer-fg-results/)
 
-**The result:**
+**The result:**  
 FG = 1.0000 – 0.0044993*RIi + 0.011774*RIf + 0.00027581*RIi² – 0.0012717*RIf² – 0.0000072800*RIi³ + 0.000063293*RIf³
 
-**Explanation**
+**Explanation:**  
 Stay tuned...
 
 ##### -Matt Mead
+
+* * *
 
 # Design Goals
 ##### December 12th, 2018
