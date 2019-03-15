@@ -2,6 +2,42 @@
 layout: default
 ---
 
+# Wort Correction Factor
+##### March 14th, 2019
+
+**Wort Correction Factor (WCF)?**
+
+Refractometers are designed to measure a pure sucrose solution and report the result in Degrees Brix (°Bx). One degree Brix is 1 gram of sucrose in 100 grams of solution. Wort, however, is not a pure sucrose solution. Wort contains mostly maltose and maltotriose, but also has maltotetraose, glucose, fructose, and some sucrose, along with trub and possibly other things (hop matter, proteins, etc). In order to correct the reading from your refractometer while measuring wort you must apply a Wort Correction Factor.
+
+While the Wort Correction Factor is specific to your particular refractometer, data from around the world suggests 1.040 to be a good compromise.
+
+**Sources:**
+[Refractometer Estimates of Final Gravity](http://seanterrill.com/2010/06/11/refractometer-estimates-of-final-gravity/)
+[How to Determine your Refractometer’s Wort Correction Factor](https://www.brewersfriend.com/how-to-determine-your-refractometers-wort-correction-factor/)
+[Don’t trust your refractometer blindly](http://braukaiser.com/blog/blog/2012/03/23/dont-trust-your-refractometer-blindly/)
+
+##### -Matt Mead
+
+# Equation Research
+##### January 13th, 2019
+
+Using common examples of brewing software revealed that not everybody is using the same calculations to convert refractometer readings to specific gravity. Most of them don't even show the magic formula they are using. Brewing science tends to keep progressing, so it's possible some of them are using out of date equations from out of date research. I set out to find the most accurate Original Gravity and Final Gravity calculations I could find. Many hours of research led me to [Sean Terrill's awesome blog](http://seanterrill.com/).
+
+Through much testing Sean has been able to develop a cubic equation for Final Gravity calculation that is what I consider to be the most accurate available. This guy has a [BS in Nuclear Engineering](http://seanterrill.com/bio-and-resume/) afterall.
+
+**The order of progression:**
+[Refractometer Estimates of Final Gravity](http://seanterrill.com/2010/06/11/refractometer-estimates-of-final-gravity/)
+[Toward a Better Refractometer Correlation](http://seanterrill.com/2010/07/20/toward-a-better-refractometer-correlation/)
+[Refractometer FG Results](http://seanterrill.com/2011/04/07/refractometer-fg-results/)
+
+**The result:**
+FG = 1.0000 – 0.0044993*RIi + 0.011774*RIf + 0.00027581*RIi² – 0.0012717*RIf² – 0.0000072800*RIi³ + 0.000063293*RIf³
+
+**Explanation**
+Stay tuned...
+
+##### -Matt Mead
+
 # Design Goals
 ##### December 12th, 2018
 
