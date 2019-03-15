@@ -177,7 +177,8 @@ class FermentingScreen extends React.Component {
     }));
   }
 
-  //this may not be accurate, check Math in Mash SummerZym95.pdf q variable
+  // TODO: Audit, check Math in Mash SummerZym95.pdf q variable
+  // Swap simplified equation 11 for equation 10
   doMathRE = () => {
     this.setState((prevState) => ({
       RE: (0.8114 * prevState.AE + 0.1886 * prevState.OE)
