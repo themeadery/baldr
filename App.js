@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const infoIcon = (<Icon name="info-outline" size={24} />)
 
-let version = 'v0.2.1';
+let version = 'v0.3.0';
 
 class UnfermentedScreen extends React.Component {
   
@@ -159,9 +159,11 @@ class FermentingScreen extends React.Component {
     }));
   }
 
+  // Change from Linear to New Cubic
   doMathFG = () => {
     this.setState((prevState) => ({
-      FG: (1 - 0.000856829 * (prevState.originalBrix / 1.04) + 0.00349412 * (prevState.currentBrix / 1.04))
+      // FG: (1 - 0.000856829 * (prevState.originalBrix / 1.04) + 0.00349412 * (prevState.currentBrix / 1.04))
+      FG: (1 - 0.0044993 * (prevState.originalBrix / 1.04) + 0.0117741 * (prevState.currentBrix / 1.04) + 0.000275806 * ((prevState.originalBrix / 1.04) * (prevState.originalBrix / 1.04)) - 0.00127169 * ((prevState.currentBrix / 1.04) * (prevState.currentBrix / 1.04)) - 0.00000727999 * ((prevState.originalBrix / 1.04) * (prevState.originalBrix / 1.04) * (prevState.originalBrix / 1.04)) + 0.0000632929 * ((prevState.currentBrix / 1.04) * (prevState.currentBrix / 1.04) * (prevState.currentBrix / 1.04)))
     }));
   }
 
@@ -193,8 +195,6 @@ class FermentingScreen extends React.Component {
 
   doMathABV = () => {
     this.setState((prevState) => ({
-      //ABV: ((prevState.OG - prevState.FG) * 131.25)
-      //ABV: ((0.01 / 0.8192) * ((prevState.originalBrix / 1.04) - (0.1808 * (prevState.originalBrix / 1.04) + 0.8192 * (668.72 * prevState.FG - 463.37 - 205.347 * (prevState.FG * prevState.FG)))) / (2.0665 - 0.010665 * (prevState.originalBrix / 1.04)))
       ABV: (prevState.ABW * (prevState.FG / 0.794))
     }));
   }
@@ -314,11 +314,13 @@ class FermentingScreen extends React.Component {
               <Text style={styles.condensed}>
                 <Text style={styles.medium}>Equations</Text>
                 {'\n'}OG = ((OB/WCF) / (258.6-(((OB/WCF) / 258.2)*227.1))) + 1
-                {'\n'}FG = 1 - 0.000856829 * (OB / WCF) + 0.00349412 * (CB / WCF)
+                {'\n'}FG = 1 – 0.0044993*(OB/WCF) + 0.011774*(CB/WCF) +
+                {'\n'}  0.00027581*(OB/WCF)² – 0.0012717*(CB/WCF)² –
+                {'\n'}  0.0000072800*(OB/WCF)³ + 0.000063293*(CB/WCF)³
                 {'\n'}ABV = ABW * (FG/0.794)
                 {'\n'}AA = 100 * (OG – FG)/(OG – 1.0)
-                {'\n'}OE = -668.962 + 1262.45 * OG - 776.43 * (OG^2) + 182.94 * (OG^3)
-                {'\n'}AE = -668.962 + 1262.45 * FG - 776.43 * (FG^2) + 182.94 * (FG^3)
+                {'\n'}OE = -668.962 + 1262.45 * OG - 776.43 * (OG)² + 182.94 * (OG)³
+                {'\n'}AE = -668.962 + 1262.45 * FG - 776.43 * (FG)² + 182.94 * (FG)³
                 {'\n'}RE = 0.8114 * AE + 0.1886 * OE
                 {'\n'}ABW = (OE - RE) / (2.0665 - 0.010665 * OE)
 
