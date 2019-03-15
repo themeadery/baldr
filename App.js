@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const infoIcon = (<Icon name="info-outline" size={24} />)
 
-let version = 'v0.2.0';
+let version = 'v0.2.1';
 
 class UnfermentedScreen extends React.Component {
   
@@ -103,12 +103,12 @@ class UnfermentedScreen extends React.Component {
 
             <View style={styles.footerViewRight}>
               <View style={styles.unfermentedInfoButtonTop}>
-                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <TouchableOpacity onPress={() => Linking.openURL('https://phorensic.github.io/baldr/#equation-research')}>
                   {infoIcon}
                 </TouchableOpacity>
               </View>
               <View style={styles.unfermentedInfoButtonBottom}>
-                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <TouchableOpacity onPress={() => Linking.openURL('https://phorensic.github.io/baldr/#wort-correction-factor')}>
                   {infoIcon}
                 </TouchableOpacity>
               </View>
@@ -328,12 +328,12 @@ class FermentingScreen extends React.Component {
             </View>
             <View style={styles.footerViewRight}>
               <View style={styles.fermentingInfoButtonTop}>
-                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <TouchableOpacity onPress={() => Linking.openURL('https://phorensic.github.io/baldr/#equation-research')}>
                   {infoIcon}
                 </TouchableOpacity>
               </View>
               <View style={styles.fermentingInfoButtonBottom}>
-                <TouchableOpacity onPress={() => Linking.openURL('http://seanterrill.com/2012/01/06/refractometer-calculator/')}>
+                <TouchableOpacity onPress={() => Linking.openURL('https://phorensic.github.io/baldr/#wort-correction-factor')}>
                   {infoIcon}
                 </TouchableOpacity>
               </View>
