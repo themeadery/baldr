@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const infoIcon = (<Icon name="info-outline" size={24} />)
 
-let version = 'v0.3.0';
+let version = 'v0.3.1';
 
 class UnfermentedScreen extends React.Component {
   
@@ -376,8 +376,8 @@ class AboutScreen extends React.Component {
           <View style={styles.genericContainer}>
             <Text style={styles.medium}>Acknowledgements</Text>
             <Text style={styles.regular}>
-              {'\t'}"react": "^16.6.3",{'\n'}
-              {'\t'}"react-native": "^0.57.8",{'\n'}
+              {'\t'}"react": "^16.8.3",{'\n'}
+              {'\t'}"react-native": "^0.59.8",{'\n'}
               {'\t'}"react-native-gesture-handler": "^1.0.12",{'\n'}
               {'\t'}"react-native-paper": "^2.10.1",{'\n'}
               {'\t'}"react-native-vector-icons": "^6.1.0",{'\n'}
