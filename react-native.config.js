@@ -25,6 +25,7 @@ module.exports = {
       dependencyConfig: android.dependencyConfig,
     },
   },
+  assets: ['./assets/fonts/'],
   /**
    * Used when running RNTester (with React Native from source)
    */
